@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Neon effect functionality
   const choices = document.querySelectorAll(".choice");
   
+  
   function addNeonEffect() {
     // remove selected class from any other choices
     choices.forEach(choice => {
