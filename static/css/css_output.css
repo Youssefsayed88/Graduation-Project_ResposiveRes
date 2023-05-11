@@ -18,26 +18,28 @@
   
 
   .left-page {
-    position: relative;
+    position: absolute;
+    top: -5%;
+    left: -1%;
     width: 50%;
-    height: 100%;
+    height: 85%;
     background-image: url(../Images/book-paper.jpg);
     z-index: 2;
-    padding: 40px;
+    padding: 20px;
     box-sizing: border-box;
   }
 
-  
   .right-page {
-    position: relative;
-    width: 50%;
-    height: 100%;
+    position: absolute;
+    top: -5%;
+    right: -1%;
+    width: 52%;
+    height: 85%;
     background-image: url(../Images/book-paper.jpg);
     z-index: 2;
     padding: 40px;
     box-sizing: border-box;
   }
-  
   
  .novel-content {
   font-size: 24px;
