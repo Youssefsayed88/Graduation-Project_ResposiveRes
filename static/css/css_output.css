@@ -1,0 +1,46 @@
+  .book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+    height: 100vh;
+    position: relative; /* add position relative to the book container */
+  }
+  
+  .right-page img {
+    position: absolute; /* add position absolute to the image inside the right page */
+    top: 45%; /* adjust the top position to center the image vertically */
+    left: 50%; /* adjust the left position to center the image horizontally */
+    transform: translate(-50%, -50%); /* use transform to center the image perfectly */
+  }
+  
+
+  .left-page {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background-image: url(book-paper.jpg);
+    z-index: 2;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+
+  
+  .right-page {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background-image: url(book-paper.jpg);
+    z-index: 2;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  
+  
+ .novel-content {
+  font-size: 24px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style:initial;
+ }
