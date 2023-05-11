@@ -6,7 +6,7 @@
     <title>{{ pagetitle }}</title>
     <link rel="stylesheet" type="text/css" href="../static/css/css_header.css">
     <link rel="stylesheet" type="text/css" href="../static/css/css_uploadimage.css">
-    <script src="../static/js/myscripts.js"></script>
+    <script src="../static/js/js_header.js"></script>
     <script src="../static/js/js_uploadimage.js"></script>
     <meta charset="utf-8" />
 
@@ -93,17 +93,6 @@
     </div>
 </body>
 
-<!-- <form id="myForm">
-    <input type="file" id="myFile" name="myFile" onchange="previewImage(event)">
-    <div id="preview-container"></div>
-    <button type="submit" id="submit-btn" onclick="uploadFile()" class="hidden"><b>Upload Image</b></button>
-    <button type="button" id="back-btn" class="hidden" onclick="additionalAction()"><b>Back</b></button>
-</form>
-
-<form action="/process_image" method="POST" enctype="multipart/form-data">
-  <input type="file" name="image">
-  <input type="submit" value="Submit">
-</form> -->
 
 <form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
   <input type="file" id="myFile" name="image" onchange="previewImage(event)">
