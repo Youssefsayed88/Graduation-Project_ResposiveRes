@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+from transformers import PegasusForConditionalGeneration, PegasusTokenizer
+import torch
 import paddleocr
 import PyPDF2
 import os
@@ -17,11 +19,41 @@ def start_website():
 def choose_input():
     return render_template("html_chooseinput.html", pagetitle="Choose Input")
 
+@app.route("/upload_text")
+def upload_text():
+    return render_template("html_uploadtext.html", pagetitle="Upload Text")
+
 @app.route("/upload_image")
 def upload_image():
     return render_template("html_uploadimage.html", pagetitle="Upload Image")
 
+model_name = "google/pegasus-cnn_dailymail"
+tokenizer = PegasusTokenizer.from_pretrained(model_name)
+model = PegasusForConditionalGeneration.from_pretrained(model_name)
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model.to(device)
+
+def generate_summary(text):
+    inputs = tokenizer(text, max_length=1024, truncation=True, return_tensors='pt').to(device)
+    summary_ids = model.generate(inputs['input_ids'], num_beams=4, max_length=128, early_stopping=True)
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    index = summary.find("<n>")
+    if index != -1:
+        sliced_string = summary[:index]
+    else:
+        sliced_string = summary
+    return sliced_string
+
+@app.route("/process_text", methods=["POST"])
+def process_text():
+    try:
+        text = request.form["text"]
+        summary = generate_summary(text)
+        return render_template("html_output.html", result=text , result2 = summary)
+    except:
+        return "Error processing text"
+    
 def extract_text(image_bytes):
         model = paddleocr.PaddleOCR(use_angle_cls=True, lang='en')
         output = model.ocr(image_bytes)
