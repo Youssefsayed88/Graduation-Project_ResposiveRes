@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Website</title>
+    <title>{{ pagetitle }}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/css_uploadpdf.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/css_header.css') }}" />
     <script src="{{ url_for('static', filename='js/js_uploadpdf.js') }}"></script>
 
 </head>
 <body>
-    <header>
+    {% include 'html_header.html' %}
+    <!-- <header>
         <div class="logo-container">
             <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Logo">
 
@@ -20,7 +21,7 @@
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
     <main>
         <section class="hero">
             <div class="hero-content">
