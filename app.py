@@ -6,10 +6,14 @@ import PyPDF2
 import os
 
 app = Flask(__name__)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print("Device used is...")
+print(device)
 
 @app.route("/")
 def index():
     return render_template("start_loading.html", pagetitle = "")
+
 
 @app.route("/home_page")
 def start_website():
@@ -18,6 +22,8 @@ def start_website():
 @app.route("/choose_input")
 def choose_input():
     return render_template("html_chooseinput.html", pagetitle="Choose Input")
+
+######################################################################################################
 
 @app.route("/upload_text")
 def upload_text():
@@ -31,7 +37,6 @@ model_name = "google/pegasus-cnn_dailymail"
 tokenizer = PegasusTokenizer.from_pretrained(model_name)
 model = PegasusForConditionalGeneration.from_pretrained(model_name)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
 
 def generate_summary(text):
@@ -44,6 +49,36 @@ def generate_summary(text):
     else:
         sliced_string = summary
     return sliced_string
+
+
+@app.route('/upload_pdf', methods=['GET','POST'])
+def upload_pdf():
+    return render_template("html_uploadpdf.html", pagetitle="Upload PDF")
+
+
+def extract_text_from_pdf(pdf_file):
+    # extract text from uploaded PDF    
+    try:
+        pdfFileObj = PyPDF2.PdfReader(pdf_file)
+        numPages = len(pdfFileObj.pages)  # pdfFileObj.getNumPages()
+        text = ''
+        for pageNum in range(numPages):
+            pageObj = pdfFileObj.pages[pageNum]
+            text += pageObj.extract_text()
+
+        print("///////////////////////////")
+        print("The pdf processing result is...")
+        print(text)
+
+        # return result
+        return text
+
+        # redirect to summarization route
+        # return redirect(url_for('generate_summary'))
+    except Exception as e:
+        return {'result': f'Error processing PDF file: {str(e)}'}
+    
+######################################################################################################
 
 @app.route("/process_text", methods=["POST"])
 def process_text():
@@ -75,57 +110,11 @@ def process_image():
         image_bytes = image_file.read()
         
         text = extract_text(image_bytes)
-        
-        return render_template("html_output.html", result=text)
+        summary = generate_summary(text)
+        return render_template("html_output.html", result=summary)
     
     except Exception as e:
         return f"Error processing image: {e}"
-
-
-@app.route('/upload_pdf', methods=['GET','POST'])
-def upload_pdf():
-    return render_template("html_uploadpdf.html", pagetitle="Upload PDF")
-
-
-def extract_text_from_pdf(pdf_file):
-    # extract text from uploaded PDF    
-    try:
-        pdfFileObj = PyPDF2.PdfReader(pdf_file)
-        numPages = len(pdfFileObj.pages)  # pdfFileObj.getNumPages()
-        text = ''
-        for pageNum in range(numPages):
-            pageObj = pdfFileObj.pages[pageNum]
-            text += pageObj.extract_text()
-
-        print("///////////////////////////")
-        print("The pdf processing result is...")
-        print(text)
-
-        # return result
-        return text
-
-        # redirect to summarization route
-        # return redirect(url_for('generate_summary'))
-    except Exception as e:
-        return {'result': f'Error processing PDF file: {str(e)}'}
-    
-    
-    
-    # try:
-    #     pdf_file = request.files['pdf-file']
-    #     extracted_text = process_pdf(pdf_file)
-
-
-
-    #     # summarize extracted text
-    #     # summary = generate_summary(extracted_text)
-
-    #     # do something with the summary, like display it on a page
-    #     rendered = render_template("html_output.html", result=extracted_text)
-    #     return rendered
-    # except Exception as e:
-    #     print("---- EXCEPTION FOUND ----")
-    #     print(e)
 
 @app.route("/process_pdf", methods=['GET','POST'])
 def process_pdf():
