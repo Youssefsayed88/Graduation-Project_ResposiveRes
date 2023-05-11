@@ -5,10 +5,10 @@
     <title>Output</title>
     <link rel="stylesheet" type="text/css" href="../static/css/css_header.css">
     <link rel="stylesheet" type="text/css" href="../static/css/css_output.css">
-    <script src="../static/js/myscripts.js"></script>
-    <script src="../static/js/js_output.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
+    <script src="../static/js/myscripts.js"></script>    
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
+        <script src="js_output.js"></script> -->
     
   </head>
 
@@ -88,14 +88,15 @@
       </div>
 
     </header>
-
     <body>
       
       <div class="book">
         <div class="left-page">
+          <p class="novel-content">{{ result }}</p>
           <!-- <p class="novel-content">Snow White wandered on and on till she got through the forest and came to a mountain hut and knocked at the door, but she got no reply. She was so tired that she lifted up the latch and walked in, and there she saw three little beds and three little chairs and three little cupboards all ready for use. And she went up to the first bed and lay down upon it, but it was so hard that she couldn't rest; and then she went up to the second bed and lay down upon that, but that was so soft that she got too hot and couldn't go to sleep. So she tried the third bed, but that was neither too hard nor too soft, but suited her exactly; and she fell asleep there.</p> -->
         </div>
         <div class="right-page">
+          <p class="novel-content">{{ result2 }}</p>
           <!-- <img id="book-image" src="redridinghood.jpg"> -->
         </div>
       </div>

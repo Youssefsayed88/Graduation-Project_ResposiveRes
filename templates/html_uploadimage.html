@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
-    <title>Upload Image</title>
+  
+    <title>{{ pagetitle }}</title>
     <link rel="stylesheet" type="text/css" href="../static/css/css_header.css">
     <link rel="stylesheet" type="text/css" href="../static/css/css_uploadimage.css">
-
     <script src="../static/js/myscripts.js"></script>
     <script src="../static/js/js_uploadimage.js"></script>
+    <meta charset="utf-8" />
+
 </head>
 
 <header>
 
-    <!-- left side of the header -->
     <div class="header-left">
       <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
 
@@ -70,12 +70,11 @@
 
     </div>
 
-    <!-- middle side of the header -->
     <div class="header-middle">
       <img src="../static/Images/logo.png" alt="Your Logo">
+
     </div>
 
-    <!-- right side of the header -->
     <div class="header-right">
       <nav>
         <ul>
@@ -92,14 +91,25 @@
     <div class="heading">
         <h1><b>Upload your image</b></h1>
     </div>
-
-    <form id="myForm">
-      <input type="file" id="myFile" name="myFile" onchange="previewImage(event)">
-      <div id="preview-container"></div>
-      <button type="submit" id="upload-btn" class="hidden" onclick="uploadFile()" ><b>Upload Image</b></button>
-      <button type="button" id="back-btn" class="hidden" onclick="additionalAction()" ><b>Back</b></button>
-  </form>
-
 </body>
+
+<!-- <form id="myForm">
+    <input type="file" id="myFile" name="myFile" onchange="previewImage(event)">
+    <div id="preview-container"></div>
+    <button type="submit" id="submit-btn" onclick="uploadFile()" class="hidden"><b>Upload Image</b></button>
+    <button type="button" id="back-btn" class="hidden" onclick="additionalAction()"><b>Back</b></button>
+</form>
+
+<form action="/process_image" method="POST" enctype="multipart/form-data">
+  <input type="file" name="image">
+  <input type="submit" value="Submit">
+</form> -->
+
+<form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
+  <input type="file" id="myFile" name="image" onchange="previewImage(event)">
+  <div id="preview-container"></div>
+  <button type="submit" id="upload-btn" class="hidden"><b>Upload Image</b></button>
+  <button type="button" id="back-btn" class="hidden" onclick="additionalAction()"><b>Back</b></button>
+</form>
 
 </html>

@@ -1,10 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-  window.addEventListener('load', function() {
-    document.body.classList.add('loaded');
-  });
-  
-
   // Sidebar toggle functionality
   var sidebar = document.querySelector('.sidebar');
   var sidebarBtn = document.querySelector('.sidebar-btn');
@@ -18,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Neon effect functionality
   const choices = document.querySelectorAll(".choice");
-  
   
   function addNeonEffect() {
     // remove selected class from any other choices
