@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (choice.classList.contains("selected")) {
         const id = choice.getAttribute("id");
         if (id === "option1") {
-          url = "html_uploadtext.html";
+          url = "/upload_text";
         } else if (id === "option2") {
           url = "/upload_image";
         } else if (id === "option3") {
