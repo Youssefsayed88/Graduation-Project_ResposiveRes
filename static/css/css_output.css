@@ -21,7 +21,7 @@
     position: relative;
     width: 50%;
     height: 100%;
-    background-image: url(book-paper.jpg);
+    background-image: url(../Images/book-paper.jpg);
     z-index: 2;
     padding: 40px;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
     position: relative;
     width: 50%;
     height: 100%;
-    background-image: url(book-paper.jpg);
+    background-image: url(../Images/book-paper.jpg);
     z-index: 2;
     padding: 40px;
     box-sizing: border-box;
