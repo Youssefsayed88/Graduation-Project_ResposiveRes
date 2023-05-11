@@ -53,7 +53,10 @@
     margin-top: 30px;
     cursor: pointer;
 }
-
+.button2 a{
+    text-decoration:none;
+    color:white
+}
 .button2 {
     position: absolute;
     top: 105%;
