@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/css_uploadpdf.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css_header.css') }}" />
+    <script src="{{ url_for('static', filename='js/js_uploadpdf.js') }}"></script>
+
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Logo">
+
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Upload your PDF</h1>
+                <form id="pdf-upload-form" action="/process_pdf" method="POST" enctype="multipart/form-data">
+                    <div class="button-container">
+                        <input type="file" name="pdf-file" id="pdf-file" style="display:none">
+                        <a href="#" class="btn" id="pdf-upload-btn">Upload</a>
+                        <a href="#" class="btn" id="pdf-remove-btn" style="display:none">Remove</a>
+                        <a href="html_chooseinput.html" class="btn" id="pdf-back-btn">Back</a>
+                    </div>
+                    <div class="pdf-box" id="pdf-preview-box" style="display:none">
+                        <div class="display-pdf">
+                            <h3>Selected PDF:</h3>
+                            <p id="pdf-preview-filename"></p>
+                        </div>
+                        <div class="dropdown-menu" id="pdf-options-box" style="display:none">
+                            <h3>How would you like to generate your PDF file?</h3>
+                            <select id="pdf-options-dropdown">
+                                <option value="" disabled selected>Select your choice</option>
+                                <option value="generate-all">Generate whole PDF</option>
+                                <option value="generate-random">Generate random pages</option>
+                                <option value="generate-specified">Generate specified pages</option>
+                            </select>
+                            <button class="btn" id="pdf-submit-btn" style="display:none">Submit</button>
+                        </div>
+                        <div class="input-box" id="pdf-page-numbers-box" style="display:none">
+                            <h3>Enter the page numbers space separated:</h3>
+                            <input type="text" id="pdf-specified-pages-input">
+                        </div>
+                    </div>
+                    <div class="error-box" id="pdf-error-box" style="display:none">
+                        <p>Please select a PDF file or press Back and choose another method.</p>
+                    </div>
+                </form>
+                <!-- <div class="result-box">
+                    <p>{{ result }}</p>
+                </div> -->
+            </div>
+        </section>
+    </main>
+</body>
+</html>
