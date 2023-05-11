@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/css_uploadtext.css">
 
     <script src="../static/js/myscripts.js"></script>
+    <script src="../static/js/js_uploadtext.js"></script>
 </head>
 
     <header>
@@ -89,11 +90,14 @@
 
   
 <body>
-    <div class="heading">
-        <h1><b>Enter your text</b></h1>
-        <textarea class="textarea"></textarea>
-        <button class="button button1"><b>Submit</b></button>
-        <button class="button button2"><b>Back</b></button>
-    </div>
+  <div class="heading">
+    <h1><b>Enter your text</b></h1>
+    <textarea class="textarea" id="myTextarea"></textarea>
+    <form id="myForm" action="/process_text" method="POST">
+        <input type="hidden" name="text" id="myInput">
+        <button class="button button1" onclick="submitForm()"><b>Submit</b></button>
+    </form>
+    <button class="button button2"><b>Back</b></button>
+  </div>
     
 </body>
