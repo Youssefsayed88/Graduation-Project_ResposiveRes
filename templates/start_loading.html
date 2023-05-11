@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+
+      }
+      .container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background-image: url('../static/Images/start_logo.PNG');
+        background-size: cover;
+        background-position: center;
+        display: none;
+      }
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black; /* replace with your desired color */
+        opacity: 1;
+        animation-name: fade-in;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+      .loader {
+        position: absolute;
+        top: 85%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 20px;
+        background-color: #bbb; /* gray color */
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .image {
+        position: absolute;
+        top: 76%;
+        left: 8%;
+        width: 80px;
+        height: 120px;
+        transform: scaleX(-1) scaleY(1);
+        background-image: url('../static/Images/superhero-sticker.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 0% 50%;
+        animation-name: image-move;
+        animation-duration: 6s;
+        animation-fill-mode: forwards;
+        animation-delay: 1s; /* delay the image move animation */
+        z-index: 1;
+      }
+      .loader .progress {
+        height: 100%;
+        background-color: #007bff; /* blue color */
+        width: 0%;
+        animation-name: progress-fill;
+        animation-duration: 6s;
+        animation-fill-mode: forwards;
+        animation-delay: 1s; /* delay the image move animation */
+      }
+  
+      @keyframes fade-in {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      @keyframes progress-fill {
+        from {
+          width: 0%;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes image-move {
+        from {
+          left: 8%;
+        }
+        to {
+          left: calc(100% - 180px); /* subtract 50px to account for the image width */
+        }
+      }
+    </style>
+
+<script>
+  function redirectToHomepage() {
+    window.location.href = "html_homepage.html";
+  }
+
+  window.onload = function() {
+    // wait for page to load, then start redirecting
+    setTimeout(redirectToHomepage, 6000); // 6000ms = 6s
+    // change the display of the container to block
+    document.querySelector('.container').style.display = 'block';
+  }
+
+  var preload = document.createElement('link');
+  preload.rel = 'preload';
+  preload.as = 'style';
+  preload.href = 'styles.css';
+  document.head.appendChild(preload);
+
+  preload = document.createElement('link');
+  preload.rel = 'preload';
+  preload.as = 'script';
+  preload.href = 'script.js';
+  document.head.appendChild(preload);
+
+  preload = document.createElement('link');
+  preload.rel = 'preload';
+  preload.as = 'image';
+  preload.href = 'image.png';
+  document.head.appendChild(preload);
+
+
+</script>
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="overlay"></div>
+      <div class="image"></div>
+      <div class="loader">
+        <div class="progress"></div>
+      </div>
+
+    </div>
+  </body>
+</html>
