@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (id === "option1") {
           url = "html_uploadtext.html";
         } else if (id === "option2") {
-          url = "html_uploadimage.html";
+          url = "/upload_image";
         } else if (id === "option3") {
           url = "html_uploadpdf.html";
         } else if (id === "option4") {
