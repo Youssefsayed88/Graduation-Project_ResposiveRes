@@ -3,14 +3,15 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 85vh;
   }
   
   .choice {
     width: 22%;
     height: 390px;
     margin: 10px;
-    margin-top: 120px;
+    margin-top: 60px;
+    margin-left: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,8 +77,8 @@
   
   .choose-type {
     position: absolute;
-    top: calc(20% - 20px);
-    left: 50%;
+    top: calc(18% - 20px);
+    left: 52%;
     transform: translateX(-50%);
     font-size: 2rem;
     color: #fff;
@@ -85,29 +86,95 @@
     text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
   }
   
-  
 
-.submit-button {
-    font-size: 24px;
-    color: #ffffff;
-    background-color: #435be3;
-    border: none;
-    border-radius: 8px;
-    padding: 16px 32px;
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    transition: all 0.2s ease-in-out;
-    margin-bottom: 30px;
-  }
-  
-  .submit-button:hover {
-    background-color: #6631e3;
-    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-  }
+.submit-button{
+  background-color: #3DD1E7;
+  border: 0 solid #E5E7EB;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 50rem;
+  font-weight: 800;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: .75rem 1.65rem;
+  text-align: center;
+  text-decoration: none #000000 solid;
+  text-decoration-thickness: auto;
+  width: 30%;
+  max-width: 460px;
+  position: relative;
+  cursor: pointer;
+  transform: rotate(0deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 600px;
+  margin-left: 50px;
+  position: absolute;
+}
 
-  a{
+
+.submit-button::before{
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    /* #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5, */
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.submit-button:focus {
+  outline: 0;
+}
+
+
+.submit-button:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+
+@media (min-width: 768px) {
+  .submit-button{
+    padding: .75rem 3rem;
+    font-size: 1.25rem;
+  }
+}
+  
+a{
     text-decoration: none;
     color: #fff;
   }

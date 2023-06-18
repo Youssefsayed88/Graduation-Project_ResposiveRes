@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../static/css/css_output.css">
     <script src="../static/js/js_header.js"></script>
     <script src="../static/js/js_output.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
     
   </head>
 
@@ -71,7 +73,7 @@
 
       <!-- middle side of the header -->
       <div class="header-middle">
-        <img src="../static/Images/logo.png" alt="Your Logo">
+        <a href="/home_page"> <img src="../static/Images/logo.png" alt="Your Logo"> </a>
       </div>
 
       <!-- right side of the header -->
@@ -96,9 +98,38 @@
         <div class="right-page">
           <p class="novel-content">{{ result2 }}</p>
           <!-- <img id="book-image" src="redridinghood.jpg"> -->
+          <img id="book-image" src="data:image/jpeg;base64,{{ result2 }}">
         </div>
+        <a href="data:image/jpeg;base64,{{ result2 }}" download="generated_image.jpg" class="download-button">Download Image</a>
+        <a href="#" id="download-book" class="download-button">Download Book</a>
       </div>
       
     </body>
+
+    <script>
+      // Function to download the book container as a JPEG image
+      function downloadBookContainer() {
+        // Get the book container element
+        const bookContainer = document.querySelector('.book');
+    
+        // Use html2canvas to capture the book container as an image
+        html2canvas(bookContainer).then(function(canvas) {
+          // Create a temporary anchor element to trigger the download
+          const downloadLink = document.createElement('a');
+          downloadLink.href = canvas.toDataURL('image/jpeg');
+          downloadLink.download = 'book_container.jpg';
+    
+          // Trigger the download
+          downloadLink.click();
+        });
+      }
+    
+      // Attach click event listener to the download button
+      const downloadBookButton = document.getElementById('download-book');
+      downloadBookButton.addEventListener('click', downloadBookContainer);
+
+
+    </script>
+  
     
 </html>

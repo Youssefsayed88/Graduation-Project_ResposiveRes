@@ -5,9 +5,10 @@
     margin-left: 50px;
     margin-right: 50px;
     margin-top: 50px;
-    height: 100vh;
-    position: relative; /* add position relative to the book container */
+    height: 90vh;
+    position: relative;
   }
+  
   
   .right-page img {
     position: absolute; /* add position absolute to the image inside the right page */
@@ -39,10 +40,42 @@
     z-index: 2;
     padding: 40px;
     box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
   }
   
+  .right-page .novel-content {
+    display: none;
+  }
+
  .novel-content {
   font-size: 24px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-style:initial;
  }
+
+ #book-image {
+  margin-top: 20px;
+  margin-left: 10px;
+  max-width: 75%;
+  max-height: 85%;
+}
+
+.download-button {
+  display: block;
+  margin-top: 480px;
+  margin-left: 30px;
+  text-align: center;
+  color: white;
+  background-color: #337ab7;
+  padding: 10px;
+  text-decoration: none;
+  position: relative;
+}
+
+.download-button:hover {
+  background-color: #286090;
+}

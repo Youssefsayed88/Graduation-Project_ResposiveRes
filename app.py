@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request
-from transformers import PegasusForConditionalGeneration, PegasusTokenizer
-import torch
-import paddleocr
+# from transformers import PegasusForConditionalGeneration, PegasusTokenizer
+# import torch
+# import paddleocr
 import PyPDF2
 import os
+import base64
+
 
 app = Flask(__name__)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print("Device used is...")
-print(device)
+# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# print("Device used is...")
+# print(device)
 
 @app.route("/")
 def index():
@@ -33,22 +35,22 @@ def upload_text():
 def upload_image():
     return render_template("html_uploadimage.html", pagetitle="Upload Image")
 
-model_name = "google/pegasus-cnn_dailymail"
-tokenizer = PegasusTokenizer.from_pretrained(model_name)
-model = PegasusForConditionalGeneration.from_pretrained(model_name)
+# model_name = "google/pegasus-cnn_dailymail"
+# tokenizer = PegasusTokenizer.from_pretrained(model_name)
+# model = PegasusForConditionalGeneration.from_pretrained(model_name)
 
-model.to(device)
+# model.to(device)
 
-def generate_summary(text):
-    inputs = tokenizer(text, max_length=1024, truncation=True, return_tensors='pt').to(device)
-    summary_ids = model.generate(inputs['input_ids'], num_beams=4, max_length=128, early_stopping=True)
-    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
-    index = summary.find("<n>")
-    if index != -1:
-        sliced_string = summary[:index]
-    else:
-        sliced_string = summary
-    return sliced_string
+# def generate_summary(text):
+#     inputs = tokenizer(text, max_length=1024, truncation=True, return_tensors='pt').to(device)
+#     summary_ids = model.generate(inputs['input_ids'], num_beams=4, max_length=128, early_stopping=True)
+#     summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+#     index = summary.find("<n>")
+#     if index != -1:
+#         sliced_string = summary[:index]
+#     else:
+#         sliced_string = summary
+#     return sliced_string
 
 
 @app.route('/upload_pdf', methods=['GET','POST'])
@@ -57,7 +59,7 @@ def upload_pdf():
 
 
 def extract_text_from_pdf(pdf_file):
-    # extract text from uploaded PDF    
+    # extract text from uploaded PDF
     try:
         pdfFileObj = PyPDF2.PdfReader(pdf_file)
         numPages = len(pdfFileObj.pages)  # pdfFileObj.getNumPages()
@@ -77,7 +79,7 @@ def extract_text_from_pdf(pdf_file):
         # return redirect(url_for('generate_summary'))
     except Exception as e:
         return {'result': f'Error processing PDF file: {str(e)}'}
-    
+
 ######################################################################################################
 
 @app.route("/process_text", methods=["POST"])
@@ -88,7 +90,7 @@ def process_text():
         return render_template("html_output.html", result=text , result2 = summary)
     except:
         return "Error processing text"
-    
+
 def extract_text(image_bytes):
         model = paddleocr.PaddleOCR(use_angle_cls=True, lang='en')
         output = model.ocr(image_bytes)
@@ -108,11 +110,14 @@ def process_image():
     try:
         image_file = request.files["image"]
         image_bytes = image_file.read()
-        
-        text = extract_text(image_bytes)
-        summary = generate_summary(text)
-        return render_template("html_output.html", result=summary)
-    
+        summary ="helllooooo"
+
+        image_base64 = base64.b64encode(image_bytes).decode("utf-8")
+
+        # text = extract_text(image_bytes)
+        # summary = generate_summary(text)
+        return render_template("html_output.html", result=summary,result2=image_base64)
+
     except Exception as e:
         return f"Error processing image: {e}"
 
@@ -133,3 +138,4 @@ def process_pdf():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5501))
     app.run(host='127.0.0.1', port=port)
+
