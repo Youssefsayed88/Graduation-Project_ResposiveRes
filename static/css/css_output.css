@@ -28,7 +28,15 @@
     z-index: 2;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y:scroll;
   }
+  
+  .left-page .novel-content {
+    margin-top: 5px;
+    font-size: 1.4vw; /* Use viewport width unit for font size adjustment */
+    font-size-adjust: 0.5; /* Adjust the font size based on the aspect value */
+  }
+  
 
   .right-page {
     position: absolute;
