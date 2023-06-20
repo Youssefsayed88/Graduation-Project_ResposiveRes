@@ -143,17 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error(error));
             
-
-
-            // fetch('/process_pdf', {
-            //     method: 'POST',
-            //     body: formData
-            // })
-            // .then(response => response.text())
-            // .then(data => {
-            //     console.log(data);
-            // })
-
             
             // show the submit button after a choice is made from the dropdown menu
             pdfSubmitBtn.style.display = "inline-block";
@@ -161,52 +150,3 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     
 });
-
-
-
-    // if (pdfSubmitBtn) {
-    //     pdfSubmitBtn.addEventListener("click", function () {
-    //         let selectedOption = pdfOptionsDropdown.value;
-    //         if (selectedOption === "generate-specified") {
-    //             let pages = pdfPageNumbersInput.value.trim().split(/\s+/);
-    //             let valid = true;
-    //             for (let i = 0; i < pages.length; i++) {
-    //                 if (pages[i] === "") {
-    //                     continue;
-    //                 }
-    //                 let pageNum = parseInt(pages[i]);
-    //                 if (isNaN(pageNum) || pageNum < 1) {
-    //                     valid = false;
-    //                     break;
-    //                 }
-    //             }
-    //             if (!valid) {
-    //                 pdfErrorBox.style.display = "block";
-    //                 pdfErrorBox.innerText = "Please enter a valid page number.";
-    //                 return;
-    //             }
-    //         }
-    //         let file = document.getElementById("pdf-file").files[0];
-    //         if (!file) {
-    //             pdfErrorBox.style.display = "block";
-    //             pdfErrorBox.innerText = "Please select a PDF file.";
-    //             return;
-    //         }
-    //         let formData = new FormData();
-    //         formData.append('pdf-file', file);
-    //         let xhr = new XMLHttpRequest();
-    //         xhr.open('POST', '/process_pdf'); // send the request to the URL specified in the form's action attribute
-    //         xhr.onload = function () {
-    //             if (xhr.status === 200) {
-    //                 let response = JSON.parse(xhr.responseText);
-    //                 console.log(response.result);
-                    
-    //             } else {
-    //                 console.error('Request failed. Error code:', xhr.status);
-    //             }
-    //         };
-    //         xhr.send(formData);
-    //         // show the submit button after a choice is made from the dropdown menu
-    //         pdfSubmitBtn.style.display = "inline-block";
-    //     });
-    // };
