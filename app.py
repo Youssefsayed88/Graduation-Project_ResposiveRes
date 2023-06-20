@@ -7,6 +7,7 @@ import os
 import base64
 
 #Text to Image Imports
+import subprocess
 import io
 from PIL import Image
 import numpy as np
@@ -29,10 +30,7 @@ print(device)
 pipe = StableDiffusionPipeline.from_pretrained("OmarAhmed1/pixelperfect300withoutcaption", torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
-# torch.backends.cuda.matmul.allow_tf32 = True  # Enable TF32 math mode if supported
-# torch.backends.cudnn.allow_tf32 = True  # Enable TF32 for cuDNN operations if supported
-# torch.backends.cudnn.benchmark = True  # Enable cuDNN benchmark mode for performance optimization
-# torch.backends.cuda.max_split_size_mb = 4096
+
 
 @app.route("/")
 def index():
@@ -119,19 +117,33 @@ def generate_image(summary):
     image_width = 256 
     steps = 50
     try:
+        generated_image = pipe(prompt, negative_prompt=negative, height=image_height, width=image_width, guidance_scale=scale, num_inference_steps=steps).images[0]
+        generated_image.save("model_output/output.png")
+        print("Image saved Successfully\n")
 
-        generated_image = pipe(prompt,negative_prompt = negative, height=image_height, width=image_width, guidance_scale = scale, num_inference_steps = steps).images[0]
-        # generated_image type is PIL.Image.Image
+
+        command = "python Real-ESRGAN/inference_realesrgan.py -n RealESRGAN_x4plus -i model_output"
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        print("Upscaller called successfully\n")
+
+        print("Accessing the upscalled image")
+        upscalled_image = Image.open("results/output_out.png")
+        print("Upscalled image accessed successfully\n")
+
+        # Generated_image type is PIL.Image.Image
+        # Saving the generated image as PNG in a BytesIO object
         image_data = io.BytesIO()
-        generated_image.save(image_data, format='PNG')
+        upscalled_image.save(image_data, format='PNG')
         image_data.seek(0)
+
+        # Convert BytesIO to base64
         image_base64 = base64.b64encode(image_data.read()).decode('utf-8')
 
         return image_base64
     except Exception as e:
-        print("Error occured during generating image")
-        print("Exception:",e)
-        return('Error occured during generating image\nException:',e)
+        print("Error occurred during generating image")
+        print("Exception:", e)
+        return 'Error occurred during generating image\nException:', e
 
 ######################################################################################################
 
@@ -205,6 +217,6 @@ def process_pdf():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5501))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='127.0.0.1', port=port)
 
