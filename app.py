@@ -78,15 +78,24 @@ def upload_pdf():
     return render_template("html_uploadpdf.html", pagetitle="Upload PDF")
 
 
-def extract_text_from_pdf(pdf_file):
+def extract_text_from_pdf(pdf_file, specified_page = None):
     # extract text from uploaded PDF
     try:
+        # Creating PyPDF2 Obj
         pdfFileObj = PyPDF2.PdfReader(pdf_file)
-        numPages = len(pdfFileObj.pages)  # pdfFileObj.getNumPages()
-        text = ''
-        for pageNum in range(numPages):
-            pageObj = pdfFileObj.pages[pageNum]
-            text += pageObj.extract_text()
+
+        # Specified Pages Case:
+        if specified_page is not None:
+            pageObj = pdfFileObj.pages[specified_page -1] # -1 to get the desired page not the index
+            text = pageObj.extract_text()
+
+        # Generate whole PDF Case:
+        else:
+            numPages = len(pdfFileObj.pages) 
+            text = ''
+            for pageNum in range(numPages):
+                pageObj = pdfFileObj.pages[pageNum]
+                text += pageObj.extract_text()
 
         print("///////////////////////////")
         print("The pdf processing result is...")
@@ -202,9 +211,20 @@ def process_pdf():
         if 'pdf-file' not in request.files:
             return {'result': 'No file uploaded'}
 
+        #get the specified page if exists
+        specified_page = request.form.get('specified-page')
+        if specified_page is not None:
+            specified_page = int(specified_page)
+            print("Specified page is:", specified_page)
+            print("Type of specified_page is:", type(specified_page))
+
         # get the uploaded file
         pdf_file = request.files['pdf-file']
-        text = extract_text_from_pdf(pdf_file)
+        print("Calling extract_text_from_pdf function")
+        text = extract_text_from_pdf(pdf_file, specified_page)
+        print("extract_text_from_pdf called successfully")
+        print("\ntext output is:\n")
+        print(text)
         summary = generate_summary(text)
     except Exception as e:
         return f"Error processing image: {e}"
