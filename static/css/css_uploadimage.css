@@ -37,6 +37,7 @@
     position: absolute;
     top: 80%;
     left: -1%;
+    text-decoration: none;
     transform: translateX(-50%) translateY(-50%);
     font-size: 24px;
     color: #ffffff;
