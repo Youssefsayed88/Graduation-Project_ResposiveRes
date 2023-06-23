@@ -7,6 +7,18 @@ import os
 import base64
 from transformers import pipeline
 
+#Text to Image Imports
+import subprocess
+import io
+from PIL import Image
+import numpy as np
+from diffusers import (
+    StableDiffusionPipeline,
+    EulerAncestralDiscreteScheduler,
+    DPMSolverMultistepScheduler,
+    PNDMScheduler,
+    DDIMScheduler,
+    KDPM2AncestralDiscreteScheduler )
 
 #Text to Image Imports
 import subprocess
@@ -29,6 +41,7 @@ print("Device used is...")
 print(device)
 
 #Preparing the model's pipeline
+<<<<<<< HEAD
 pipe = StableDiffusionPipeline.from_pretrained("PixelPerfect/PixelPerfect",custom_pipeline = "lpw_stable_diffusion", torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 pipe.enable_xformers_memory_efficient_attention()
@@ -37,6 +50,12 @@ pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.conf
 # Preparing the prompt auto complete model
 AutoComplete_model = pipeline(model='PixelPerfect/PixelPerfect_StableDiffusion_AutoCompleteModel', device=0)
 
+=======
+pipe = StableDiffusionPipeline.from_pretrained("OmarAhmed1/pixelperfect300withoutcaption", torch_dtype=torch.float16)
+pipe = pipe.to("cuda")
+pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
+
+>>>>>>> 900be408b98a99d3d36492f1f073c95568b44161
 
 @app.route("/")
 def index():
@@ -113,12 +132,20 @@ def extract_text_from_pdf(pdf_file, specified_page = None):
         return {'result': f'Error processing PDF file: {str(e)}'}
 
 def generate_image(summary):
+<<<<<<< HEAD
     # prompt = summary
 
     #this will be the o/p of the autocomplete model
     # prompt += ", fantasy, cartoon, novel design, 8k"
     prompt = AutoComplete_model(summary + ",", num_return_sequences=1)[0]["generated_text"]
     prompt = "Portrait of " + prompt
+=======
+    prompt = summary
+
+    #this will be the o/p of the autocomplete model
+    prompt += ", fantasy, cartoon, novel design, 8k"
+
+>>>>>>> 900be408b98a99d3d36492f1f073c95568b44161
     print("\nThe prompt is:", prompt)
 
     negative = """ugly tiling, disfigured, deformed, low quality, pixelated, blurry, grains, grainy, text watermark, signature, out of frame,
@@ -129,8 +156,13 @@ def generate_image(summary):
       low resolution ,morbid ,blank background ,boring background ,render ,unreal engine"""
 
     scale = 7           
+<<<<<<< HEAD
     image_height = 512
     image_width = 512 
+=======
+    image_height = 256
+    image_width = 256 
+>>>>>>> 900be408b98a99d3d36492f1f073c95568b44161
     steps = 50
     try:
         generated_image = pipe(prompt, negative_prompt=negative, height=image_height, width=image_width, guidance_scale=scale, num_inference_steps=steps).images[0]
