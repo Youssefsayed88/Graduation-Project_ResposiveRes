@@ -1,33 +1,5 @@
-// function previewImage(event) {
-//     var previewContainer = document.getElementById('preview-container');
-//     previewContainer.innerHTML = ''; // clear previous preview
-
-//     var file = event.target.files[0];
-//     var imageType = /^image\//;
-
-//     if (!imageType.test(file.type)) {
-//         previewContainer.innerHTML = "Please select an image file.";
-//         return;
-//     }
-
-//     var img = document.createElement("img");
-//     img.classList.add("preview-image");
-
-//     var reader = new FileReader();
-//     reader.onload = function() {
-//         img.src = reader.result;
-//         document.getElementById("upload-btn").classList.remove("hidden");
-//         document.getElementById("back-btn").classList.remove("hidden");
-//     }
-//     reader.readAsDataURL(file);
-
-//     previewContainer.appendChild(img);
-//     }
-
 function previewImage(event) {
     var previewContainer = document.getElementById('preview-container');
-    var headingElement = document.querySelector('.heading');
-
     previewContainer.innerHTML = ''; // clear previous preview
 
     var file = event.target.files[0];
@@ -46,12 +18,11 @@ function previewImage(event) {
         img.src = reader.result;
         document.getElementById("upload-btn").classList.remove("hidden");
         document.getElementById("back-btn").classList.remove("hidden");
-        headingElement.style.display = 'none'; // Hide the heading element
     }
     reader.readAsDataURL(file);
 
     previewContainer.appendChild(img);
-}
+    }
 
 
 function additionalAction() {

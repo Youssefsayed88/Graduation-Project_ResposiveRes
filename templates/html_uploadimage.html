@@ -3,7 +3,7 @@
 <html>
 <head>
   
-    <title>{{ pagetitle }}</title>
+    <title>Upload Image</title>
     <link rel="stylesheet" type="text/css" href="../static/css/css_header.css">
     <link rel="stylesheet" type="text/css" href="../static/css/css_uploadimage.css">
     <script src="../static/js/js_header.js"></script>
@@ -13,7 +13,6 @@
 </head>
 
 <header>
-
     <div class="header-left">
       <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
 
@@ -83,7 +82,8 @@
         </ul>
       </nav>
     </div>
-
+    <div class="stick left"></div>
+    <div class="stick right"></div>
   </header>
 
 <body>
@@ -92,12 +92,13 @@
     </div>
 </body>
 
-
+<div class="container">
 <form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
   <input type="file" id="myFile" name="image" onchange="previewImage(event)">
   <div id="preview-container"></div>
-  <button type="submit" id="upload-btn" class="hidden"><b>Upload Image</b></button>
+  <button type="submit" id="upload-btn" class="hidden"><b>Submit</b></button>
   <button type="button" id="back-btn" class="hidden" onclick="additionalAction()"><b>Back</b></button>
 </form>
+</div>
 
 </html>
