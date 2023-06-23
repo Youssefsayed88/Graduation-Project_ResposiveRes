@@ -24,7 +24,6 @@ function previewImage(event) {
     previewContainer.appendChild(img);
     }
 
-
 function additionalAction() {
 // Code to perform additional action goes here
 }
