@@ -5,7 +5,9 @@ import paddleocr
 import PyPDF2
 import os
 import base64
+
 from transformers import pipeline
+
 
 #Text to Image Imports
 import subprocess
@@ -19,7 +21,6 @@ from diffusers import (
     PNDMScheduler,
     DDIMScheduler,
     KDPM2AncestralDiscreteScheduler )
-
 
 app = Flask(__name__)
 
@@ -41,22 +42,16 @@ AutoComplete_model = pipeline(model='PixelPerfect/PixelPerfect_StableDiffusion_A
 @app.route("/")
 def index():
     return render_template("start_loading.html", pagetitle = "")
-
-
 @app.route("/home_page")
 def start_website():
     return render_template("html_homepage.html", pagetitle="Home Page")
-
 @app.route("/choose_input")
 def choose_input():
     return render_template("html_chooseinput.html", pagetitle="Choose Input")
-
 ######################################################################################################
-
 @app.route("/upload_text")
 def upload_text():
     return render_template("html_uploadtext.html", pagetitle="Upload Text")
-
 @app.route("/upload_image")
 def upload_image():
     return render_template("html_uploadimage.html", pagetitle="Upload Image")
@@ -83,14 +78,12 @@ def generate_summary(text):
 def upload_pdf():
     return render_template("html_uploadpdf.html", pagetitle="Upload PDF")
 
-
 def extract_text_from_pdf(pdf_file, specified_page = None):
     # extract text from uploaded PDF
     try:
         # Creating PyPDF2 Obj
         pdfFileObj = PyPDF2.PdfReader(pdf_file)
-
-        # Specified Pages Case:
+                # Specified Pages Case:
         if specified_page is not None:
             pageObj = pdfFileObj.pages[specified_page -1] # -1 to get the desired page not the index
             text = pageObj.extract_text()
@@ -108,9 +101,10 @@ def extract_text_from_pdf(pdf_file, specified_page = None):
         print(text)
 
         return text
-
+    
     except Exception as e:
-        return {'result': f'Error processing PDF file: {str(e)}'}
+         return {'result': f'Error processing PDF file: {str(e)}'}
+    
 
 def generate_image(summary):
     # prompt = summary
@@ -169,8 +163,9 @@ def process_text():
         text = request.form["text"]
         summary = generate_summary(text)        
     except:
-        return "Error processing text"
-    
+        return "Error processing text"       
+        
+
     generated_image = generate_image(summary)
 
     # Assign the data URL to the `result2` variable
@@ -179,28 +174,25 @@ def process_text():
     return render_template("html_output.html", result=text, result2=result2)
 
 def extract_text(image_bytes):
-        model = paddleocr.PaddleOCR(use_angle_cls=True, lang='en')
-        output = model.ocr(image_bytes)
-
-        result = ""
-        i=0
-        for res in output:
-                while i < len(output[0]):
-                     result = result + res[i][1][0]
-                     result = result + ' '
-                     i+=1
-
-        return result
+    model = paddleocr.PaddleOCR(use_angle_cls=True, lang='en')
+    output = model.ocr(image_bytes)
+    result = ""
+    i=0
+    for res in output:
+            while i < len(output[0]):
+                    result = result + res[i][1][0]
+                    result = result + ' '
+                    i+=1
+    return result
 
 @app.route("/process_image", methods=["POST"])
 def process_image():
     try:
         image_file = request.files["image"]
         image_bytes = image_file.read()
-
         text = extract_text(image_bytes)
         summary = generate_summary(text)
-        
+
     except Exception as e:
         return f"Error processing image: {e}"
 
@@ -227,6 +219,7 @@ def process_pdf():
 
         # get the uploaded file
         pdf_file = request.files['pdf-file']
+
         print("Calling extract_text_from_pdf function")
         text = extract_text_from_pdf(pdf_file, specified_page)
         print("extract_text_from_pdf called successfully")
@@ -244,6 +237,5 @@ def process_pdf():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='127.0.0.1', port=port)
-
+   port = int(os.environ.get("PORT", 5000))
+   app.run(host='127.0.0.1', port=port)
