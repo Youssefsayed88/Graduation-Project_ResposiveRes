@@ -49,8 +49,24 @@
                                 <!-- <option value="generate-random">Generate random pages</option> -->
                                 <option value="generate-specified">Generate specified pages</option>
                             </select>
+                            <h3>Select your favourite image style</style></h3>
+                            <select id="style-options-dropdown">
+                                <option value="" disabled selected>Select your style</option>
+                                <option value="pixelperfect-style">PixelPerfect Style</option>
+                                <option value="novel-style">Novel Style</option>
+                                <option value="kids-style">Kids Style</option>
+                                <option value="photorealistic-style">PhotoRealistic Style</option>
+                            </select>
+                            <h3>Select your favourite image resolution</style></h3>
+                            <select id="resolution-options-dropdown">
+                                <option value="" disabled selected>Select your resolution</option>
+                                <option value="landscape-res">Landscape</option>
+                                <option value="square-res">Square</option>
+                                <option value="portrait-res">Portrait</option>
+                            </select>
                             <button class="btn" id="pdf-submit-btn" style="display:none">Submit</button>
                         </div>
+
                         <div class="input-box" id="pdf-page-numbers-box" style="display:none">
                             <h3>Enter the number of the page you want to imagine:</h3>
                             <input type="text" id="pdf-specified-pages-input">

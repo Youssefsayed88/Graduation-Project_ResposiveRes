@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
     let pdfPreviewFilename = document.getElementById("pdf-preview-filename");
   
     let pdfOptionsBox = document.getElementById("pdf-options-box");
+
     let pdfOptionsDropdown = document.getElementById("pdf-options-dropdown");
+    let styleOptionsDropdown = document.getElementById("style-options-dropdown");
+    let resOptionsDropdown = document.getElementById("resolution-options-dropdown");
   
     let pdfErrorBox = document.getElementById("pdf-error-box");
     let pdfPageNumbersBox = document.getElementById("pdf-page-numbers-box");
@@ -81,12 +84,48 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 pdfPageNumbersBox.style.display = "none";
             }
-            pdfSubmitBtn.style.display = "inline-block"; // show the submit button after any choice from the dropdown menu
+            // pdfSubmitBtn.style.display = "inline-block"; // show the submit button after any choice from the dropdown menu
             if (selectedOption === "generate-all") {
                 pdfPageNumbersInput.value = ""; // clear the page numbers input if the "generate all pages" option is selected
             }
         });
     }
+    if (styleOptionsDropdown) {
+      styleOptionsDropdown.addEventListener("change", function () {
+        let selectedStyle = styleOptionsDropdown.value;
+        // Perform actions based on the selected style
+        console.log("Selected style:", selectedStyle);
+      });
+    }
+
+    if (resOptionsDropdown) {
+      resOptionsDropdown.addEventListener("change", function () {
+        let selectedResolution = resOptionsDropdown.value;
+        // Perform actions based on the selected resolution
+        console.log("Selected resolution:", selectedResolution);
+      });
+    }
+
+    if (pdfOptionsDropdown && styleOptionsDropdown && resOptionsDropdown) {
+        // Function to check if all three dropdown menus have selected values
+        function checkDropdownSelection() {
+          let pdfOption = pdfOptionsDropdown.value;
+          let styleOption = styleOptionsDropdown.value;
+          let resOption = resOptionsDropdown.value;
+      
+          if (pdfOption && styleOption && resOption) {
+            pdfSubmitBtn.style.display = "inline-block";
+          } else {
+            pdfSubmitBtn.style.display = "none";
+          }
+        }
+      
+        // Add event listeners to all three dropdown menus
+        pdfOptionsDropdown.addEventListener("change", checkDropdownSelection);
+        styleOptionsDropdown.addEventListener("change", checkDropdownSelection);
+        resOptionsDropdown.addEventListener("change", checkDropdownSelection);
+    }
+      
 
     if(pdfPageNumbersInput){
         pdfPageNumbersInput.addEventListener("input", function () {
@@ -100,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function() {
           event.preventDefault();
           console.log("Submit Button clicked");
           let selectedOption = pdfOptionsDropdown.value;
+          let selectedStyle = styleOptionsDropdown.value;
+          let selectedResolution = resOptionsDropdown.value;
           let specifiedPage = null;
       
           if (selectedOption === "generate-specified") {
@@ -122,10 +163,15 @@ document.addEventListener("DOMContentLoaded", function() {
           let formData = new FormData();
           formData.append("pdf-file", file);
           if (specifiedPage !== null) {
-            formData.append("specified-page", specifiedPage); // Pass the specified page number as an integer
+            formData.append("specified-page", specifiedPage); // Pass the specified page number            
             console.log("Specified page is: ", specifiedPage);
-          }
-      
+        }
+
+          formData.append("resolution", selectedResolution); // Pass the chosen resolution
+          formData.append("style", selectedStyle); // Pass the chosen style
+          console.log("Resolution is: ", selectedResolution)
+          console.log("Style is: ", selectedStyle)
+          
           fetch("/process_pdf", {
             method: "POST",
             body: formData,
