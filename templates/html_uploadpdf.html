@@ -46,13 +46,13 @@
                             <select id="pdf-options-dropdown">
                                 <option value="" disabled selected>Select your choice</option>
                                 <option value="generate-all">Generate whole PDF</option>
-                                <option value="generate-random">Generate random pages</option>
+                                <!-- <option value="generate-random">Generate random pages</option> -->
                                 <option value="generate-specified">Generate specified pages</option>
                             </select>
                             <button class="btn" id="pdf-submit-btn" style="display:none">Submit</button>
                         </div>
                         <div class="input-box" id="pdf-page-numbers-box" style="display:none">
-                            <h3>Enter the page numbers space separated:</h3>
+                            <h3>Enter the number of the page you want to imagine:</h3>
                             <input type="text" id="pdf-specified-pages-input">
                         </div>
                     </div>
@@ -60,9 +60,6 @@
                         <p>Please select a PDF file or press Back and choose another method.</p>
                     </div>
                 </form>
-                <!-- <div class="result-box">
-                    <p>{{ result }}</p>
-                </div> -->
             </div>
         </section>
     </main>

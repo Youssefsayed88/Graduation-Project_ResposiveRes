@@ -134,7 +134,7 @@ def generate_image(summary):
     except Exception as e:
        print("Error occurred during generating image")
        print("Exception:", e)
-       return 'Error occurred during generating image\nException:', e
+       return 'Error occurred during generating image\nException:' + str(e)
 
 ######################################################################################################
 
@@ -162,6 +162,7 @@ def extract_text(image_bytes):
                      i+=1
         return result
 @app.route("/process_image", methods=["POST"])
+
 def process_image():
     try:
         image_file = request.files["image"]
@@ -175,6 +176,7 @@ def process_image():
     # Assign the data URL to the `result2` variable
     result2 = 'data:image/png;base64,' + generated_image
     return render_template("html_output.html", result=text,result2=result2)
+
 @app.route("/process_pdf", methods=['GET','POST'])
 def process_pdf():
     try:
