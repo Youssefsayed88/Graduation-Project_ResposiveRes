@@ -37,6 +37,7 @@ pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.conf
 # Preparing the prompt auto complete model
 AutoComplete_model = pipeline(model='PixelPerfect/PixelPerfect_StableDiffusion_AutoCompleteModel', device=0)
 
+
 @app.route("/")
 def index():
     return render_template("start_loading.html", pagetitle = "")
@@ -118,8 +119,6 @@ def generate_image(summary):
     # prompt += ", fantasy, cartoon, novel design, 8k"
     prompt = AutoComplete_model(summary + ",", num_return_sequences=1)[0]["generated_text"]
     prompt = "Portrait of " + prompt
-    prompt = summary
-
     print("\nThe prompt is:", prompt)
 
     negative = """ugly tiling, disfigured, deformed, low quality, pixelated, blurry, grains, grainy, text watermark, signature, out of frame,
@@ -133,7 +132,6 @@ def generate_image(summary):
     image_height = 512
     image_width = 512 
     steps = 50
-
     try:
         generated_image = pipe(prompt, negative_prompt=negative, height=image_height, width=image_width, guidance_scale=scale, num_inference_steps=steps).images[0]
         generated_image.save("model_output/output.png")
