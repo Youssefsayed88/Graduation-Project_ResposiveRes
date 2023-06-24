@@ -5,6 +5,8 @@ import paddleocr
 import PyPDF2
 import os
 import base64
+from transformers import pipeline
+
 
 #Text to Image Imports
 import subprocess
@@ -18,7 +20,6 @@ from diffusers import (
     PNDMScheduler,
     DDIMScheduler,
     KDPM2AncestralDiscreteScheduler )
-from transformers import pipeline
 
 app = Flask(__name__)
 
@@ -28,13 +29,14 @@ print("Device used is...")
 print(device)
 
 #Preparing the model's pipeline
-pipe = StableDiffusionPipeline.from_pretrained("OmarAhmed1/pixelperfect300withoutcaption", torch_dtype=torch.float16)
+pipe = StableDiffusionPipeline.from_pretrained("PixelPerfect/PixelPerfect",custom_pipeline = "lpw_stable_diffusion", torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 pipe.enable_xformers_memory_efficient_attention()
 pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
 
 # Preparing the prompt auto complete model
 AutoComplete_model = pipeline(model='PixelPerfect/PixelPerfect_StableDiffusion_AutoCompleteModel', device=0)
+
 
 @app.route("/")
 def index():
@@ -56,6 +58,7 @@ def upload_image():
 model_name = "google/pegasus-cnn_dailymail"
 tokenizer = PegasusTokenizer.from_pretrained(model_name)
 model = PegasusForConditionalGeneration.from_pretrained(model_name)
+
 model.to(device)
 
 def generate_summary(text):
@@ -68,32 +71,48 @@ def generate_summary(text):
     else:
         sliced_string = summary
     return sliced_string
+
+
 @app.route('/upload_pdf', methods=['GET','POST'])
 def upload_pdf():
     return render_template("html_uploadpdf.html", pagetitle="Upload PDF")
-def extract_text_from_pdf(pdf_file):
+
+
+def extract_text_from_pdf(pdf_file, specified_page = None):
     # extract text from uploaded PDF
     try:
+        # Creating PyPDF2 Obj
         pdfFileObj = PyPDF2.PdfReader(pdf_file)
-        numPages = len(pdfFileObj.pages)  # pdfFileObj.getNumPages()
-        text = ''
-        for pageNum in range(numPages):
-            pageObj = pdfFileObj.pages[pageNum]
-            text += pageObj.extract_text()
+
+        # Specified Pages Case:
+        if specified_page is not None:
+            pageObj = pdfFileObj.pages[specified_page -1] # -1 to get the desired page not the index
+            text = pageObj.extract_text()
+
+        # Generate whole PDF Case:
+        else:
+            numPages = len(pdfFileObj.pages) 
+            text = ''
+            for pageNum in range(numPages):
+                pageObj = pdfFileObj.pages[pageNum]
+                text += pageObj.extract_text()
+
         print("///////////////////////////")
         print("The pdf processing result is...")
         print(text)
+
         return text
+
     except Exception as e:
         return {'result': f'Error processing PDF file: {str(e)}'}
+
 def generate_image(summary):
     # prompt = summary
+
     #this will be the o/p of the autocomplete model
     # prompt += ", fantasy, cartoon, novel design, 8k"
-
     prompt = AutoComplete_model(summary + ",", num_return_sequences=1)[0]["generated_text"]
     prompt = "Portrait of " + prompt
-
     print("\nThe prompt is:", prompt)
 
     negative = """ugly tiling, disfigured, deformed, low quality, pixelated, blurry, grains, grainy, text watermark, signature, out of frame,
@@ -102,7 +121,7 @@ def generate_image(summary):
       poorly drawn hands, missing hands,
       missing arms, missing legs, missing fingers, fused fingers ,unnatural pose ,out of frame,
       low resolution ,morbid ,blank background ,boring background ,render ,unreal engine"""
-    
+
     scale = 7           
     image_height = 512
     image_width = 512 
@@ -116,6 +135,7 @@ def generate_image(summary):
         command = "python Real-ESRGAN/inference_realesrgan.py -n RealESRGAN_x4plus -i model_output"
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         print("Upscaller called successfully\n")
+
         print("Accessing the upscalled image")
         upscalled_image = Image.open("results/output_out.png")
         print("Upscalled image accessed successfully\n")
@@ -130,11 +150,10 @@ def generate_image(summary):
         image_base64 = base64.b64encode(image_data.read()).decode('utf-8')
 
         return image_base64
-    
     except Exception as e:
-       print("Error occurred during generating image")
-       print("Exception:", e)
-       return 'Error occurred during generating image\nException:' + str(e)
+        print("Error occurred during generating image")
+        print("Exception:", e)
+        return 'Error occurred during generating image\nException:', e
 
 ######################################################################################################
 
@@ -145,11 +164,14 @@ def process_text():
         summary = generate_summary(text)        
     except:
         return "Error processing text"
-    
+
     generated_image = generate_image(summary)
+
     # Assign the data URL to the `result2` variable
     result2 = 'data:image/png;base64,' + generated_image
+
     return render_template("html_output.html", result=text, result2=result2)
+
 def extract_text(image_bytes):
         model = paddleocr.PaddleOCR(use_angle_cls=True, lang='en')
         output = model.ocr(image_bytes)
@@ -162,20 +184,23 @@ def extract_text(image_bytes):
                      i+=1
         return result
 @app.route("/process_image", methods=["POST"])
-
 def process_image():
     try:
         image_file = request.files["image"]
         image_bytes = image_file.read()
+
         text = extract_text(image_bytes)
         summary = generate_summary(text)
-        
+
     except Exception as e:
         return f"Error processing image: {e}"
+
     generated_image = generate_image(summary)
+
     # Assign the data URL to the `result2` variable
     result2 = 'data:image/png;base64,' + generated_image
     return render_template("html_output.html", result=text,result2=result2)
+
 
 @app.route("/process_pdf", methods=['GET','POST'])
 def process_pdf():
@@ -183,16 +208,31 @@ def process_pdf():
         # check if a file was uploaded
         if 'pdf-file' not in request.files:
             return {'result': 'No file uploaded'}
+
+        #get the specified page if exists
+        specified_page = request.form.get('specified-page')
+        if specified_page is not None:
+            specified_page = int(specified_page)
+            print("Specified page is:", specified_page)
+            print("Type of specified_page is:", type(specified_page))
+
         # get the uploaded file
         pdf_file = request.files['pdf-file']
-        text = extract_text_from_pdf(pdf_file)
+        print("Calling extract_text_from_pdf function")
+        text = extract_text_from_pdf(pdf_file, specified_page)
+        print("extract_text_from_pdf called successfully")
+        print("\ntext output is:\n")
+        print(text)
         summary = generate_summary(text)
     except Exception as e:
         return f"Error processing image: {e}"
+
     generated_image = generate_image(summary)
+
     # Assign the data URL to the `result2` variable
     result2 = 'data:image/png;base64,' + generated_image
     return render_template("html_output.html", result=text, result2=result2)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
