@@ -9,6 +9,8 @@ from transformers import pipeline
 
 
 #Text to Image Imports
+from safetensors.torch import load_file
+from collections import defaultdict
 import subprocess
 import io
 from PIL import Image
@@ -47,7 +49,9 @@ def start_website():
 @app.route("/choose_input")
 def choose_input():
     return render_template("html_chooseinput.html", pagetitle="Choose Input")
+
 ######################################################################################################
+
 @app.route("/upload_text")
 def upload_text():
     return render_template("html_uploadtext.html", pagetitle="Upload Text")
@@ -106,13 +110,119 @@ def extract_text_from_pdf(pdf_file, specified_page = None):
     except Exception as e:
         return {'result': f'Error processing PDF file: {str(e)}'}
 
-def generate_image(summary):
+# *********************
+# Text to Image Model *
+# *********************
+
+def generate_image(summary, style, resolution):
+
+    def load_lora_weights(pipeline, checkpoint_path, multiplier, device, dtype):
+        LORA_PREFIX_UNET = "lora_unet"
+        LORA_PREFIX_TEXT_ENCODER = "lora_te"
+        # load LoRA weight from .safetensors
+        state_dict = load_file(checkpoint_path, device=device)
+
+        updates = defaultdict(dict)
+        for key, value in state_dict.items():
+            # it is suggested to print out the key, it usually will be something like below
+            # "lora_te_text_model_encoder_layers_0_self_attn_k_proj.lora_down.weight"
+
+            layer, elem = key.split('.', 1)
+            updates[layer][elem] = value
+
+        # directly update weight in diffusers model
+        for layer, elems in updates.items():
+
+            if "text" in layer:
+                layer_infos = layer.split(LORA_PREFIX_TEXT_ENCODER + "_")[-1].split("_")
+                curr_layer = pipeline.text_encoder
+            else:
+                layer_infos = layer.split(LORA_PREFIX_UNET + "_")[-1].split("_")
+                curr_layer = pipeline.unet
+
+            # find the target layer
+            temp_name = layer_infos.pop(0)
+            while len(layer_infos) > -1:
+                try:
+                    curr_layer = curr_layer.__getattr__(temp_name)
+                    if len(layer_infos) > 0:
+                        temp_name = layer_infos.pop(0)
+                    elif len(layer_infos) == 0:
+                        break
+                except Exception:
+                    if len(temp_name) > 0:
+                        temp_name += "_" + layer_infos.pop(0)
+                    else:
+                        temp_name = layer_infos.pop(0)
+
+            # get elements for this layer
+            weight_up = elems['lora_up.weight'].to(dtype)
+            weight_down = elems['lora_down.weight'].to(dtype)
+            alpha = elems['alpha']
+            if alpha:
+                alpha = alpha.item() / weight_up.shape[1]
+            else:
+                alpha = 1.0
+
+            # update weight
+            if len(weight_up.shape) == 4:
+                curr_layer.weight.data += multiplier * alpha * torch.mm(weight_up.squeeze(3).squeeze(2), weight_down.squeeze(3).squeeze(2)).unsqueeze(2).unsqueeze(3)
+            else:
+                curr_layer.weight.data += multiplier * alpha * torch.mm(weight_up, weight_down)
+
+        return pipeline
+    
+    def GenerateImage(pipe, lora_path, weight, final_prompt, negative, img_width, img_height, steps = 50, scale = 7):
+
+        pipe = load_lora_weights(pipe, lora_path, weight, "cuda", torch.float16)
+
+        image = pipe(final_prompt, negative_prompt=negative, width=img_width, height=img_height, num_inference_steps=steps, guidance_scale=scale).images[0]
+
+        pipe = load_lora_weights(pipe, lora_path, weight * (-1), "cuda", torch.float16)
+
+        return image
+
+
+
+
+
     # prompt = summary
 
     #this will be the o/p of the autocomplete model
     # prompt += ", fantasy, cartoon, novel design, 8k"
     prompt = AutoComplete_model(summary + ",", num_return_sequences=1)[0]["generated_text"]
-    prompt = "Portrait of " + prompt
+
+    # Selecting the required resolution
+    if resolution == "landscape-res":
+      img_width = 768
+      img_height = 512
+    elif resolution == "square-res":
+      img_width = 512
+      img_height = 512
+    elif resolution == "portrait-res":
+      img_width = 512
+      img_height = 768
+
+    print(f"Resolution is: {resolution} ({img_width}x{img_height})")
+
+    # Selecting the required style
+    if style == "pixelperfect-style":
+      lora_path = "/content/Graduation-Project/LORAs/Enhancer2.safetensors"
+      weight = 1
+      prompt = "Portrait of " + prompt
+    elif style == "kids-style":
+      lora_path = "/content/Graduation-Project/LORAs/Kids.safetensors"
+      weight = 1.2
+    elif style == "novel-style":
+      lora_path = "/content/Graduation-Project/LORAs/Novels.safetensors"
+      weight = 0.7
+    elif style == "photorealistic-style":
+      lora_path = "/content/Graduation-Project/LORAs/Enhancer2.safetensors"
+      weight = 1
+      prompt = "photorealistic, " + summary
+
+    print("Style is:",style)
+    # prompt = "Portrait of " + prompt
     print("\nThe prompt is:", prompt)
 
     negative = """ugly tiling, disfigured, deformed, low quality, pixelated, blurry, grains, grainy, text watermark, signature, out of frame,
@@ -123,11 +233,9 @@ def generate_image(summary):
       low resolution ,morbid ,blank background ,boring background ,render ,unreal engine"""
 
     scale = 7           
-    image_height = 512
-    image_width = 512 
     steps = 50
     try:
-        generated_image = pipe(prompt, negative_prompt=negative, height=image_height, width=image_width, guidance_scale=scale, num_inference_steps=steps).images[0]
+        generated_image = GenerateImage(pipe, lora_path, weight, prompt, negative, img_width, img_height)
         generated_image.save("model_output/output.png")
         print("Image saved Successfully\n")
 
@@ -153,7 +261,7 @@ def generate_image(summary):
     except Exception as e:
         print("Error occurred during generating image")
         print("Exception:", e)
-        return 'Error occurred during generating image\nException:', e
+        return 'Error occurred during generating image\nException:' + str(e)
 
 ######################################################################################################
 
@@ -209,6 +317,12 @@ def process_pdf():
         if 'pdf-file' not in request.files:
             return {'result': 'No file uploaded'}
 
+        #get the selected Style and Resolution
+        style = request.form.get('style')
+        resolution = request.form.get('resolution')
+        print("Style is:", style)
+        print("Resolution is:", resolution)
+
         #get the specified page if exists
         specified_page = request.form.get('specified-page')
         if specified_page is not None:
@@ -227,7 +341,7 @@ def process_pdf():
     except Exception as e:
         return f"Error processing image: {e}"
 
-    generated_image = generate_image(summary)
+    generated_image = generate_image(summary, style, resolution)
 
     # Assign the data URL to the `result2` variable
     result2 = 'data:image/png;base64,' + generated_image
