@@ -34,7 +34,9 @@
   text-decoration-thickness: auto;
   width: 30%;
   max-width: 460px;
-  position: relative;
+  position: absolute;
+  top: 618px;
+  left: 27px;
   cursor: pointer;
   transform: rotate(0deg);
   user-select: none;
@@ -250,6 +252,8 @@ span:nth-child(10){
 }
 
 .image-grid {
+  position: absolute;
+  top: 150px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
