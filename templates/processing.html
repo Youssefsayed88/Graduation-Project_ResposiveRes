@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Quotes</title>
+	<style type="text/css">
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          background-image: url('background-image.jpg');
+          background-size: cover;
+          background-repeat: no-repeat;
+          animation: animateBg 50s linear infinite;
+          overflow: hidden;
+        }
+        .loader {
+  border: 8px solid rgba(255, 253, 253, 0.3);
+  border-top: 8px solid #fcfdff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  position: absolute;
+  top: 45%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  animation: spin 1s linear infinite;
+  box-shadow: 0px 0px 10px #FFFFFF, 0px 0px 20px #FFFFFF, 0px 0px 30px #FFFFFF, 0px 0px 40px #00FFFF, 0px 0px 70px #00FFFF, 0px 0px 80px #00FFFF, 0px 0px 100px #00FFFF, 0px 0px 150px #00FFFF;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+        
+        #quote-container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-top: 40%;
+        }
+        
+        .quote {
+            display: none;
+            font-size: 24px;
+            font-style: italic;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 1px black;
+        }
+        
+        .active {
+            display: block;
+            animation: fade 5s ease-in-out;
+        }
+        
+        @keyframes fade {
+            0% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+	</style>
+</head>
+<body>
+
+<div class="loader"></div>
+
+
+<div id="quote-container">
+	<div class="quote active">Your image is being prepared....</div>
+	<div class="quote">The bits are flowing slowly today.</div>
+	<div class="quote">We're making you a cookie.</div>
+    <div class="quote">I swear it's almost done.</div>
+    <div class="quote">We will provide you with the best results but remember, no one is perfect. We all have weaknesses and limitations.</div>
+    <div class="quote">Did you know that: Most AI Bots are Female.</div>
+
+    
+</div>
+
+<script type="text/javascript">
+	(function() {
+		var quotes = document.getElementsByClassName('quote');
+		var quoteIndex = 0;
+    
+    // Hide the spinner once the page is loaded
+    window.addEventListener('load', function() {
+      var spinner = document.getElementById('spinner');
+      spinner.style.display = 'none';
+    });
+
+		function showNextQuote() {
+			quotes[quoteIndex].classList.remove('active');
+			quoteIndex++;
+			if (quoteIndex === quotes.length) {
+				quoteIndex = 0;
+			}
+			quotes[quoteIndex].classList.add('active');
+		}
+
+		showNextQuote();
+		setInterval(showNextQuote, 4000);
+	})();
+</script>
+
+</body>
+</html>
