@@ -98,9 +98,6 @@
     <a href="#" id="download-image" class="download-button">Download Image</a>
   </div>
 
-  <div id="loading-overlay">
-    <iframe src="../templates/processing.html" style="border: none; width: 100%; height: 100%;"></iframe>
-  </div>
 
   <script>
     let currentImageIndex = 1;
@@ -154,18 +151,6 @@ function downloadCurrentImage() {
 const downloadImageButton = document.getElementById('download-image');
 downloadImageButton.addEventListener('click', downloadCurrentImage);
 
-// Function to hide the loading overlay
-function hideLoadingOverlay() {
-      var loadingOverlay = document.getElementById('loading-overlay');
-      loadingOverlay.style.display = 'none';
-    }
-
-    // Wait for the page to fully load
-    window.onload = function() {
-      // Call the hideLoadingOverlay function to hide the loading overlay
-      hideLoadingOverlay();
-    };
-    
   </script>
 </body>
 
