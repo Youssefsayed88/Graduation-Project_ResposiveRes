@@ -1,89 +1,131 @@
-  .book {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 50px;
-    height: 90vh;
-    position: relative;
-  }
-  
-  
-  .right-page img {
-    position: absolute; /* add position absolute to the image inside the right page */
-    top: 45%; /* adjust the top position to center the image vertically */
-    left: 50%; /* adjust the left position to center the image horizontally */
-    transform: translate(-50%, -50%); /* use transform to center the image perfectly */
-  }
-  
-
-  .left-page {
-    position: absolute;
-    top: -5%;
-    left: -1%;
-    width: 50%;
-    height: 85%;
-    background-image: url(../Images/book-paper.jpg);
-    z-index: 2;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y:scroll;
-  }
-  
-  .left-page .novel-content {
-    margin-top: 5px;
-    font-size: 1.4vw; /* Use viewport width unit for font size adjustment */
-    font-size-adjust: 0.5; /* Adjust the font size based on the aspect value */
-  }
-  
-
-  .right-page {
-    position: absolute;
-    top: -5%;
-    right: -1%;
-    width: 52%;
-    height: 85%;
-    background-image: url(../Images/book-paper.jpg);
-    z-index: 2;
-    padding: 40px;
-    box-sizing: border-box;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  .right-page .novel-content {
-    display: none;
-  }
-
- .novel-content {
-  font-size: 24px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-style:initial;
- }
-
- #book-image {
-  margin-top: 20px;
-  margin-left: 10px;
-  max-width: 75%;
-  max-height: 85%;
-}
-
-.download-button {
-  display: block;
-  margin-top: 480px;
-  margin-left: 30px;
-  text-align: center;
-  color: white;
-  background-color: #337ab7;
-  padding: 10px;
-  text-decoration: none;
+.book {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50px;
+  height: 90vh;
   position: relative;
 }
 
-.download-button:hover {
-  background-color: #286090;
+
+.right-page img {
+  position: absolute; 
+  top: 45%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
 }
+
+
+.left-page {
+  position: absolute;
+  top: -5%;
+  left: -1%;
+  width: 52%;
+  height: 85%;
+  background-image: url(../Images/book-paper.jpg);
+  z-index: 2;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y:scroll;
+}
+
+.left-page .novel-content {
+  margin-top: 5px;
+  font-size: 1.4vw;
+  font-size-adjust: 0.5; 
+}
+
+
+.right-page {
+  position: absolute;
+  top: -5%;
+  right: -1%;
+  width: 50%;
+  height: 85%;
+  background-image: url(../Images/book-paper.jpg);
+  z-index: 2;
+  padding: 40px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.right-page .novel-content {
+  display: none;
+}
+
+.novel-content {
+font-size: 24px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-style:initial;
+}
+
+#book-image {
+margin-top: 20px;
+margin-left: 10px;
+max-width: 75%;
+max-height: 85%;
+}
+
+
+/* Add this class to hide the images by default */
+.hidden {
+  display: none;
+}
+
+/* Styles for the buttons */
+.nav-buttons {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 250px; /* Adjust the top margin to create space between the buttons and book container */
+  margin-right: 82px;
+  margin-left: 90px;
+  width: 30%;
+  border: none;
+}
+
+.nav-buttons li {
+  position: relative;
+}
+
+.nav-buttons a {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+
+.download-button {
+  display: block;
+  margin-top: 500px;
+  margin-right: -1%;
+  margin-left: 2px;
+  text-align: center;
+  color: rgb(4, 4, 4);
+  background-color: #337ab7;
+  padding: 14px;
+  text-decoration: none;
+  position: absolute;
+  z-index: 3; 
+  font-weight: bold;
+}
+
+#prev-button, #next-button{
+  background-color:#337ab7;
+  padding: 12px 11px;
+  font-weight: bold;
+  font-size: 18px;
+}
+

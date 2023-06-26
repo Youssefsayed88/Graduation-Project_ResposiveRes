@@ -341,11 +341,18 @@ def process_pdf():
     except Exception as e:
         return f"Error processing image: {e}"
 
-    generated_image = generate_image(summary, style, resolution)
+    generated_images = []
+    for i in range(4):
+      generated_image = generate_image(summary, style, resolution)
+      generated_images.append(generated_image)
 
     # Assign the data URL to the `result2` variable
-    result2 = 'data:image/png;base64,' + generated_image
-    return render_template("html_output.html", result=text, result2=result2)
+    result1 = 'data:image/png;base64,' + generated_images[0]
+    result2 = 'data:image/png;base64,' + generated_images[1]
+    result3 = 'data:image/png;base64,' + generated_images[2]
+    result4 = 'data:image/png;base64,' + generated_images[3]
+
+    return render_template("html_output.html", result=text,result1=result1, result2=result2, result3=result3, result4=result4)
 
 
 if __name__ == '__main__':
