@@ -84,20 +84,23 @@
           </ul>
         </nav>
       </div>
-      
+      <div class="stick left"></div>
+      <div class="stick right"></div>
     </header>
 
 
   
 <body>
-  <div class="heading">
-    <h1><b>Enter your text</b></h1>
-    <textarea class="textarea" id="myTextarea"></textarea>
-    <form id="myForm" action="/process_text" method="POST">
-        <input type="hidden" name="text" id="myInput">
-        <button class="button button1" onclick="submitForm()"><b>Submit</b></button>
-    </form>
-    <button class="button button2"> <a href="/choose_input"><b>Back</b></a></button>
-  </div>
+  <div class="container">
+    <div class="heading">
+      <h1><b>Enter your text</b></h1>
+      <textarea class="textarea" id="myTextarea"></textarea>
+      <form id="myForm" action="/process_text" method="POST">
+          <input type="hidden" name="text" id="myInput">
+          <button class="button button1" onclick="submitForm()"><b>Submit</b></button>
+      </form>
+      <button class="button button2"> <a href="/choose_input"><b>Back</b></a></button>
+    </div>
+ </div>
     
 </body>
