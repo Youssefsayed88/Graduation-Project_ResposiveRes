@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Guide</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/css_header.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/css_guide.css">
+    <script src="../static/js/js_header.js"></script>
+    <script src="../static/js/js_guide.js"></script>
+</head>
+
+<header>
+    <!-- left side of the header -->
+    <div class="header-left">
+        <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
+
+        <div class="sidebar">
+
+        <h2 class="sidebar-title">Novels Websites Suggestions</h2>
+
+        <ul>
+            <div class="suggestion">
+            <li>
+            <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>
+            <p class="description">A digital library with over 60,000 free eBooks, including many children's books.</p>
+            </li>
+            </div>
+
+            <div class="suggestion">
+            <li>
+            <a href="https://openlibrary.org/" target="_blank">Open Library</a>
+            <p class="description">A digital library with over 1.7 million free eBooks, including many children's books.</p>
+            </li>
+            </div>
+
+            <div class="suggestion">
+            <li>
+            <a href="https://manybooks.net/" target="_blank">ManyBooks</a>
+            <p class="description">A digital library with over 50,000 free eBooks, including many children's books.</p>
+            </li>
+            </div>
+
+            <div class="suggestion">
+            <li>
+            <a href="https://magicblox.com/" target="_blank">MagicBlox Children's Book Library</a>
+            <p class="description">A website that offers a large selection of free children's books in PDF format.</p>
+            </li>
+            </div>
+
+            <div class="suggestion">
+            <li>
+            <a href="https://digilibraries.com/" target="_blank">DigiLibraries</a>
+            <p class="description">A digital library with over 33,000 free eBooks, including many children's books.</p>
+            </li>
+            </div>
+
+            <div class="suggestion">
+            <li>
+            <a href="https://www.bartleby.com/" target="_blank">Bartleby</a>
+            <p class="description">A digital library with over 5,000 free eBooks, including many children's books.</p>
+            </li>
+            </div>
+
+        </ul>
+
+        </div>
+
+    </div>
+
+    <!-- middle side of the header -->
+    <div class="header-middle">
+        <a href="/home_page"> <img src="../static/Images/logo.png" alt="Your Logo"> </a>
+    </div>
+
+    <!-- right side of the header -->
+    <div class="header-right">
+        <nav>
+        <ul>
+            <li><a href="#">Guide</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact </a></li>
+        </ul>
+        </nav>
+    </div>
+</header>
+
+<body>
+
+    <h3 class="title"> How to generate your image</h3>
+
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="text" onclick="showTab('text')">Text</div>
+            <div class="tab" data-tab="image" onclick="showTab('image')">Image</div>
+            <div class="tab" data-tab="pdf" onclick="showTab('pdf')">PDF</div>
+            <div class="tab" data-tab="styles" onclick="showTab('styles')">Styles & Resolution</div>
+            <div class="tab" data-tab="cautions" onclick="showTab('cautions')">Cautions</div>
+        </div>
+
+        <div class="tab-content" id="text">
+            <p>You will use that input type when you want to enter your text by your own or by copying and pasting. </p>
+            <p id="steps">Steps:</p>
+            <p> 1- In the choose your input type page, click on text then submit.</p>
+            <p> 2- You will be taken to a page where there is a text area.</p>
+            <p> 3- Add your content to the text area. (make sure your text doesn't have numbers only)</p>
+            <p> 4- Choose your style and resolution.</p>
+            <p> 5- Click submit.</p>
+            <p style="color: greenyellow;">Note: If you want to clear the content you added you can do that with just one click by clicking remove.</p>
+        </div>
+
+        <div class="tab-content" id="image">
+            <p>You will use that input type when you want to enter your text as an image or a screenshot </p>
+            <p id="steps">Steps:</p>
+            <p> 1- In the choose your input type page, click on image then submit.</p>
+            <p> 2- You will be taken to a page where there is an upload button.</p>
+            <p> 3- Click on it and then upload your image.</p>
+            <p> 4- Choose your style and resolution.</p>
+            <p> 5- Click submit.</p>
+            <p style="color: greenyellow;">Note: If you want to remove the image you added and add a new one you can do that with just one click by clicking remove.</p>
+            </div>
+
+        <div class="tab-content" id="pdf">
+            <p>You will use that input type when you want to enter your text by specifying in which page does it exists in a PDF. </p>
+            <p id="steps">Steps:</p>
+            <p> 1- In the choose your input type page, click on PDF then submit.</p>
+            <p> 2- You will be taken to a page where there is an upload button.</p>
+            <p> 3- Upload your PDF and enter your page number in the box that appears.</p>
+            <p> 4- Choose your style and resolution.</p>
+            <p> 5- Click submit.</p>
+            <p style="color: greenyellow;">Note: If you want to remove the PDF you added and add a new one you can do that with just one click by clicking remove.</p>
+         </div>
+
+        <div class="tab-content" id="styles">
+            <p id="steps">Styles</p>
+            <p> In our website, you have 3 different kinds of generated pictures styles.</p>
+            <p> - Pixel Perfect: This is our main style, it is good when your page has a description of a location or a person.</p>
+            <p> - Kids: This style is good for children stories, especially when the characters are kids or animals.</p>
+            <p> - Novels: This style is good for novels and books that are most probably preferred by adults.</p>
+
+            <p id="steps">Resolution</p>
+            <p> You can also pick from 3 different kinds of resolutions.</p>
+            <p> - Landscape: It is good if your page has so many places. </p>
+            <p> - Square: It is good if your page has a mix of events. </p>
+            <p> - Portrait: It is good if your page is describing a character.</p>
+        </div>
+
+        <div class="tab-content" id="cautions">
+            <p> - Our target is not generating a detailed image of the page, but helping you imagine it.</p>
+            <p> - Your generated image fully depends on the page's content you pass as it goes through summarization and other AI models.</p>
+            <p> - If you want to generate pictures for many pages in your novel, you can pass each page of your novel individually, save the generated pictures and then merge them using a PDF editor website like <a href="https://www.ilovepdf.com" target="_blank">www.ilovepdf.com </a></p>
+            <p> - You may find a bit differences if you are trying to generate a picture for a popular characters like Rapunzel, Superman, Tom & Jerry and other cartoons due to copyrights.</p>
+        </div>
+    </div>
+
+</body>
+
+
+</html>
