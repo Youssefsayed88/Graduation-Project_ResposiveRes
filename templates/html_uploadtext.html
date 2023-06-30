@@ -10,97 +10,115 @@
     <script src="../static/js/js_uploadtext.js"></script>
 </head>
 
-    <header>
-        
-    <!-- left side of the header -->
-    <div class="header-left">
-        <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
-  
-        <div class="sidebar">
-  
-          <h2 class="sidebar-title">Novels Websites Suggestions</h2>
-  
-          <ul>
-            <div class="suggestion">
-            <li>
-            <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>
-            <p class="description">A digital library with over 60,000 free eBooks, including many children's books.</p>
-            </li>
-            </div>
-  
-            <div class="suggestion">
-              <li>
-              <a href="https://openlibrary.org/" target="_blank">Open Library</a>
-              <p class="description">A digital library with over 1.7 million free eBooks, including many children's books.</p>
-              </li>
-              </div>
-  
-            <div class="suggestion">
-              <li>
-              <a href="https://manybooks.net/" target="_blank">ManyBooks</a>
-              <p class="description">A digital library with over 50,000 free eBooks, including many children's books.</p>
-              </li>
-              </div>
-  
-            <div class="suggestion">
-              <li>
-              <a href="https://magicblox.com/" target="_blank">MagicBlox Children's Book Library</a>
-              <p class="description">A website that offers a large selection of free children's books in PDF format.</p>
-              </li>
-              </div>
-  
-            <div class="suggestion">
-              <li>
-              <a href="https://digilibraries.com/" target="_blank">DigiLibraries</a>
-              <p class="description">A digital library with over 33,000 free eBooks, including many children's books.</p>
-              </li>
-              </div>
-  
-            <div class="suggestion">
-              <li>
-              <a href="https://www.bartleby.com/" target="_blank">Bartleby</a>
-              <p class="description">A digital library with over 5,000 free eBooks, including many children's books.</p>
-              </li>
-              </div>
-  
-          </ul>
-  
+<header>
+    
+<!-- left side of the header -->
+<div class="header-left">
+    <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
+
+    <div class="sidebar">
+
+      <h2 class="sidebar-title">Novels Websites Suggestions</h2>
+
+      <ul>
+        <div class="suggestion">
+        <li>
+        <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>
+        <p class="description">A digital library with over 60,000 free eBooks, including many children's books.</p>
+        </li>
         </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://openlibrary.org/" target="_blank">Open Library</a>
+          <p class="description">A digital library with over 1.7 million free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://manybooks.net/" target="_blank">ManyBooks</a>
+          <p class="description">A digital library with over 50,000 free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://magicblox.com/" target="_blank">MagicBlox Children's Book Library</a>
+          <p class="description">A website that offers a large selection of free children's books in PDF format.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://digilibraries.com/" target="_blank">DigiLibraries</a>
+          <p class="description">A digital library with over 33,000 free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://www.bartleby.com/" target="_blank">Bartleby</a>
+          <p class="description">A digital library with over 5,000 free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+  <!-- middle side of the header -->
+  <div class="header-middle">
+    <a href="/home_page"> <img src="../static/Images/logo.png" alt="Your Logo"> </a>
+  </div>
+
+  <!-- right side of the header -->
+  <div class="header-right">
+    <nav>
+      <ul>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+  </div>
   
-      </div>
-  
-      <!-- middle side of the header -->
-      <div class="header-middle">
-        <a href="/home_page"> <img src="../static/Images/logo.png" alt="Your Logo"> </a>
-      </div>
-  
-      <!-- right side of the header -->
-      <div class="header-right">
-        <nav>
-          <ul>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">About</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="stick left"></div>
-      <div class="stick right"></div>
-    </header>
+</header>
 
 
   
 <body>
-  <div class="container">
-    <div class="heading">
-      <h1><b>Enter your text</b></h1>
-      <textarea class="textarea" id="myTextarea"></textarea>
-      <form id="myForm" action="/process_text" method="POST">
-          <input type="hidden" name="text" id="myInput">
+  <div class="heading">
+    <h1><b>Enter your text</b></h1>
+    <textarea class="textarea" id="myTextarea"></textarea>
+    <form id="myForm" action="/process_text" method="POST">
+        <input type="hidden" name="text" id="myInput">
+        <input type="hidden" name="style" id="style-option-input">
+        <input type="hidden" name="resolution" id="resolution-option-input">
+
+        <div class="dropdown-menu" id="style-options-box">
+          <h3>Select your favourite image style</h3>
+          <select id="style-options-dropdown">
+              <option value="" disabled selected>Select your style</option>
+              <option value="pixelperfect-style">PixelPerfect Style</option>
+              <option value="novel-style">Novel Style</option>
+              <option value="kids-style">Kids Style</option>
+              <option value="photorealistic-style">PhotoRealistic Style</option>
+          </select>
+          <h3>Select your favourite image resolution</h3>
+          <select id="resolution-options-dropdown">
+              <option value="" disabled selected>Select your resolution</option>
+              <option value="landscape-res">Landscape</option>
+              <option value="square-res">Square</option>
+              <option value="portrait-res">Portrait</option>
+          </select>
           <button class="button button1" onclick="submitForm()"><b>Submit</b></button>
-      </form>
-      <button class="button button2"> <a href="/choose_input"><b>Back</b></a></button>
-    </div>
- </div>
-    
+          <button class="button button2"> <a href="/choose_input"><b>Back</b></a></button>
+      </div>
+    </form>
+  </div>
 </body>
+
+</html>
