@@ -16,35 +16,37 @@ function previewImage(event) {
     var reader = new FileReader();
     reader.onload = function() {
         img.src = reader.result;
-        document.getElementById("upload-btn").classList.remove("hidden");
-        document.getElementById("back-btn").classList.remove("hidden");
-    }
+        showButtons(); // Show the Upload button and Back button
+    };
     reader.readAsDataURL(file);
 
     previewContainer.appendChild(img);
-    }
+}
 
-function additionalAction() {
-// Code to perform additional action goes here
+function logStyleOption() {
+    var styleOption = document.getElementById("style-options-dropdown").value;
+    console.log("Style chosen is:", styleOption);
+    document.getElementById("style-option-input").value = styleOption;
+}
+
+function logResolutionOption() {
+    var resolutionOption = document.getElementById("resolution-options-dropdown").value;
+    console.log("Resolution chosen is:", resolutionOption);
+    document.getElementById("resolution-option-input").value = resolutionOption;
 }
 
 function showButtons() {
-document.getElementById("upload-btn").classList.remove("hidden");
-document.getElementById("back-btn").classList.remove("hidden");
+    document.getElementById("upload-btn").classList.remove("hidden");
+    document.getElementById("back-btn").classList.remove("hidden");
 }
 
-function uploadFile() {
-    event.preventDefault(); // Prevent form submission
-    
-    var fileInput = document.getElementById("myFile");
-    var file = fileInput.files[0];
-    
-    var img = document.createElement("img");
-    var objectURL = URL.createObjectURL(file);
-    
-    img.onload = function() {
-        URL.revokeObjectURL(this.src);
-    }
-    
-    img.src = objectURL;
+function submitForm() {
+    var styleOption = document.getElementById("style-options-dropdown").value;
+    var resolutionOption = document.getElementById("resolution-options-dropdown").value;
+
+    console.log("Upload button pressed");
+    console.log("Style chosen is:", styleOption);
+    console.log("Resolution chosen is:", resolutionOption);
+
+    document.getElementById("myForm").submit();
 }
