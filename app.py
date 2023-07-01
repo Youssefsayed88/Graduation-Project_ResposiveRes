@@ -269,18 +269,30 @@ def generate_image(summary, style, resolution):
 def process_text():
     try:
         text = request.form["text"]
+        style = request.form["style"]
+        resolution = request.form["resolution"]
+
+        print("Style is:", style)
+        print("Resolution is:", resolution)
         summary = generate_summary(text)        
     except:
         return "Error processing text"
 
-    generated_image = generate_image(summary)
+    generated_images = []
+    for i in range(4):
+      print("\nGenerating image number:",i+1)
+      generated_image = generate_image(summary, style, resolution)
+      generated_images.append(generated_image)
 
     # Assign the data URL to the `result2` variable
-    result2 = 'data:image/png;base64,' + generated_image
+    result1 = 'data:image/png;base64,' + generated_images[0]
+    result2 = 'data:image/png;base64,' + generated_images[1]
+    result3 = 'data:image/png;base64,' + generated_images[2]
+    result4 = 'data:image/png;base64,' + generated_images[3]
 
-    return render_template("html_output.html", result=text, result2=result2)
+    return render_template("html_output.html", result=text,result1=result1, result2=result2, result3=result3, result4=result4)
 
-def extract_text(image_bytes):
+def extract_text_from_image(image_bytes):
         model = paddleocr.PaddleOCR(use_angle_cls=True, lang='en')
         output = model.ocr(image_bytes)
         result = ""
@@ -294,21 +306,41 @@ def extract_text(image_bytes):
 @app.route("/process_image", methods=["POST"])
 def process_image():
     try:
+        # Get the uploaded image
+        print("Getting the image..")
         image_file = request.files["image"]
+        print("\nTransforming the image..")
         image_bytes = image_file.read()
-
-        text = extract_text(image_bytes)
+        print("transformed successfully")
+        print("\nExtracting text..")
+        text = extract_text_from_image(image_bytes)
+        print("text extracted successfully")
+        print("text is:", text)
+        print("\nGenerating summary..")
         summary = generate_summary(text)
+        print("summary is:", summary)
+        # Get the style and the resolution
+        style = request.values.get('style')
+        resolution = request.values.get('resolution')
+        print("Style is:", style)
+        print("Resolution is:", resolution)
 
     except Exception as e:
         return f"Error processing image: {e}"
 
-    generated_image = generate_image(summary)
+    generated_images = []
+    for i in range(4):
+      print("\nGenerating image number:",i+1)
+      generated_image = generate_image(summary, style, resolution)
+      generated_images.append(generated_image)
 
     # Assign the data URL to the `result2` variable
-    result2 = 'data:image/png;base64,' + generated_image
-    return render_template("html_output.html", result=text,result2=result2)
+    result1 = 'data:image/png;base64,' + generated_images[0]
+    result2 = 'data:image/png;base64,' + generated_images[1]
+    result3 = 'data:image/png;base64,' + generated_images[2]
+    result4 = 'data:image/png;base64,' + generated_images[3]
 
+    return render_template("html_output.html", result=text,result1=result1, result2=result2, result3=result3, result4=result4)
 
 @app.route("/process_pdf", methods=['GET','POST'])
 def process_pdf():
@@ -343,6 +375,7 @@ def process_pdf():
 
     generated_images = []
     for i in range(4):
+      print("\nGenerating image number:",i+1)
       generated_image = generate_image(summary, style, resolution)
       generated_images.append(generated_image)
 
