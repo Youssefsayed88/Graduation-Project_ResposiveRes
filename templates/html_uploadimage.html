@@ -86,19 +86,41 @@
     <div class="stick right"></div>
   </header>
 
-<body>
+  <body>
     <div class="heading">
         <h1><b>Upload your image</b></h1>
     </div>
-</body>
 
-<div class="container">
-<form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
-  <input type="file" id="myFile" name="image" onchange="previewImage(event)">
-  <div id="preview-container"></div>
-  <button type="submit" id="upload-btn" class="hidden"><b>Upload Image</b></button>
-  <a href="/choose_input" id="back-btn"><b>Back</b></a>
-</form>
-</div>
+    <div class="container">
+        <div id="preview-container"></div>
+
+        <form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
+            <input type="file" id="myFile" name="image" onchange="previewImage(event)">
+            <button type="submit" id="upload-btn" class="hidden" onclick="submitForm()"><b>Upload Image</b></button>
+            <a href="/choose_input" id="back-btn"><b>Back</b></a>
+
+            <div class="dropdown-menu" id="style-options-box">
+                <h3>Select your favourite image style</h3>
+                <select id="style-options-dropdown" onchange="logStyleOption()">
+                    <option value="" disabled selected>Select your style</option>
+                    <option value="pixelperfect-style">PixelPerfect Style</option>
+                    <option value="novel-style">Novel Style</option>
+                    <option value="kids-style">Kids Style</option>
+                    <option value="photorealistic-style">PhotoRealistic Style</option>
+                </select>
+                <input type="hidden" name="style" id="style-option-input">
+
+                <h3>Select your favourite image resolution</h3>
+                <select id="resolution-options-dropdown" onchange="logResolutionOption()">
+                    <option value="" disabled selected>Select your resolution</option>
+                    <option value="landscape-res">Landscape</option>
+                    <option value="square-res">Square</option>
+                    <option value="portrait-res">Portrait</option>
+                </select>
+                <input type="hidden" name="resolution" id="resolution-option-input">
+            </div>
+        </form>
+    </div>
+</body>
 
 </html>
