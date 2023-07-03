@@ -1,0 +1,31 @@
+  /* Add the styles for the container */
+  .container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    height: 80%;
+    width: 50%;
+    overflow: hidden; /* Hide overflowing content */
+    padding: 10px;
+}
+
+/* Add the styles for the text */
+.text {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    animation: slideUp 40s linear infinite; /* Animation for sliding up */
+}
+
+/* Define the animation keyframes */
+@keyframes slideUp {
+    0% {
+        transform: translateY(70%);
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+}
