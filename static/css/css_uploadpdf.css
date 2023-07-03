@@ -8,50 +8,6 @@ main {
     z-index: 100;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Global styles */
-body {
-    background-color: white;
-}
-
-/* Header styles */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 1rem;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav li {
-    margin-right: 1rem;
-}
-
-nav a {
-    text-decoration: none;
-    color: #333333;
-    font-weight: bold;
-    font-size: 1.2rem;
-    transition: color 0.2s ease-in-out;
-}
-
-nav a:hover {
-    color: #666666;
-}
 
 /* Hero section styles */
 .hero {

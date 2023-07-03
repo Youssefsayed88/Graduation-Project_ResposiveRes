@@ -10,76 +10,85 @@
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 
+<header>
+
+  <!-- left side of the header -->
+  <div class="header-left">
+    <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
+
+    <div class="sidebar">
+
+      <h2 class="sidebar-title">Novels Websites Suggestions</h2>
+
+      <ul>
+        <div class="suggestion">
+        <li>
+        <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>
+        <p class="description">A digital library with over 60,000 free eBooks, including many children's books.</p>
+        </li>
+        </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://openlibrary.org/" target="_blank">Open Library</a>
+          <p class="description">A digital library with over 1.7 million free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://manybooks.net/" target="_blank">ManyBooks</a>
+          <p class="description">A digital library with over 50,000 free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://magicblox.com/" target="_blank">MagicBlox Children's Book Library</a>
+          <p class="description">A website that offers a large selection of free children's books in PDF format.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://digilibraries.com/" target="_blank">DigiLibraries</a>
+          <p class="description">A digital library with over 33,000 free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+        <div class="suggestion">
+          <li>
+          <a href="https://www.bartleby.com/" target="_blank">Bartleby</a>
+          <p class="description">A digital library with over 5,000 free eBooks, including many children's books.</p>
+          </li>
+          </div>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+  <!-- middle side of the header -->
+  <div class="header-middle">
+    <a href="/home_page"> <img src="../static/Images/logo.png" alt="Your Logo"> </a>
+  </div>
+
+  <!-- right side of the header -->
+  <div class="header-right">
+    <nav>
+      <ul>
+        <li><a href="/guide">Guide</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+</header>
+
 <body>
-  <header>
-    <!-- left side of the header -->
-    <div class="header-left">
-      <button class="sidebar-btn" onclick="toggleSidebar()">&#8801;</button>
-      <div class="sidebar">
-        <h2 class="sidebar-title">Novels Websites Suggestions</h2>
-        <ul>
-          <div class="suggestion">
-            <li>
-              <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>
-              <p class="description">A digital library with over 60,000 free eBooks, including many children's books.</p>
-            </li>
-          </div>
-
-          <div class="suggestion">
-            <li>
-              <a href="https://openlibrary.org/" target="_blank">Open Library</a>
-              <p class="description">A digital library with over 1.7 million free eBooks, including many children's books.</p>
-            </li>
-          </div>
-
-          <div class="suggestion">
-            <li>
-              <a href="https://manybooks.net/" target="_blank">ManyBooks</a>
-              <p class="description">A digital library with over 50,000 free eBooks, including many children's books.</p>
-            </li>
-          </div>
-
-          <div class="suggestion">
-            <li>
-              <a href="https://magicblox.com/" target="_blank">MagicBlox Children's Book Library</a>
-              <p class="description">A website that offers a large selection of free children's books in PDF format.</p>
-            </li>
-          </div>
-
-          <div class="suggestion">
-            <li>
-              <a href="https://digilibraries.com/" target="_blank">DigiLibraries</a>
-              <p class="description">A digital library with over 33,000 free eBooks, including many children's books.</p>
-            </li>
-          </div>
-
-          <div class="suggestion">
-            <li>
-              <a href="https://www.bartleby.com/" target="_blank">Bartleby</a>
-              <p class="description">A digital library with over 5,000 free eBooks, including many children's books.</p>
-            </li>
-          </div>
-        </ul>
-      </div>
-    </div>
-
-    <!-- middle side of the header -->
-    <div class="header-middle">
-      <a href="/home_page"> <img src="../static/Images/logo.png" alt="Your Logo"> </a>
-    </div>
-
-    <!-- right side of the header -->
-    <div class="header-right">
-      <nav>
-        <ul>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Help</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
+  
   <div class="book">
     <div class="left-page">
       <p class="novel-content">{{ result }}</p>
@@ -99,59 +108,6 @@
   </div>
 
 
-  <script>
-    let currentImageIndex = 1;
-
-// Function to show the current image and hide others
-function showCurrentImage() {
-  const rightPage = document.querySelector('.right-page');
-  const images = rightPage.querySelectorAll('img');
-
-  for (let i = 0; i < images.length; i++) {
-    if (i === currentImageIndex - 1) {
-      images[i].classList.remove('hidden');
-    } else {
-      images[i].classList.add('hidden');
-    }
-  }
-}
-
-
-// Function to navigate to the previous image
-function prevImage() {
-  currentImageIndex--;
-  if (currentImageIndex < 1) {
-    currentImageIndex = 4;
-  }
-  showCurrentImage();
-}
-
-// Function to navigate to the next image
-function nextImage() {
-  currentImageIndex++;
-  if (currentImageIndex > 4) {
-    currentImageIndex = 1;
-  }
-  showCurrentImage();
-}
-
-// Function to download the current image
-function downloadCurrentImage() {
-  const rightPage = document.querySelector('.right-page');
-  const currentImage = rightPage.querySelector('img:not(.hidden)');
-
-  const downloadLink = document.createElement('a');
-  downloadLink.href = currentImage.src;
-  downloadLink.download = 'generated_image.png';
-
-  downloadLink.click();
-}
-
-// Attach click event listener to the download image button
-const downloadImageButton = document.getElementById('download-image');
-downloadImageButton.addEventListener('click', downloadCurrentImage);
-
-  </script>
 </body>
 
 </html>
