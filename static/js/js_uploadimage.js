@@ -37,7 +37,7 @@ function logResolutionOption() {
 
 function showButtons() {
     document.getElementById("upload-btn").classList.remove("hidden");
-    document.getElementById("back-btn").classList.remove("hidden");
+    document.getElementById("remove-btn").classList.remove("hidden");
 }
 
 function submitForm() {
@@ -50,3 +50,21 @@ function submitForm() {
 
     document.getElementById("myForm").submit();
 }
+
+function removeImage() {
+    // Clear the file input value
+    document.getElementById("myFile").value = "";
+
+    // Hide the preview container and remove the preview image source
+    document.getElementById("preview-container").innerHTML = "";
+
+    // Hide the upload and remove buttons
+    document.getElementById("upload-btn").classList.add("hidden");
+    document.getElementById("remove-btn").classList.add("hidden");
+
+    // Show the file input again
+    document.getElementById("myFile").style.display = "block";
+}
+
+
+
