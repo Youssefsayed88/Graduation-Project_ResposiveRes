@@ -60,7 +60,7 @@ main {
 
 #pdf-remove-btn{
     display: inline-block;
-    background-color: #ff4040;
+    background-color: #f30000;
     color: #ffffff;
     padding: 1rem 1.5rem;
     border-radius: 4px;
@@ -70,7 +70,7 @@ main {
 }
 
 #pdf-remove-btn:hover{
-    background-color: #f30000;
+    background-color: #ff4040;
 }
 
 /* New classes styles */
