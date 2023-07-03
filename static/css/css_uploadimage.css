@@ -1,7 +1,7 @@
  .heading {
     text-align: center;
     position: absolute;
-    top: 23%;
+    top: 9%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     color: white;
@@ -11,7 +11,7 @@
 
 #upload-btn {
     position: absolute;
-    top: 90%;
+    top: 117%;
     left: 42%;
     transform: translateX(-50%) translateY(-50%);
     background-color: #333333;
@@ -29,7 +29,7 @@
 
 #remove-btn {
   position: absolute;
-  top: 90%;
+  top: 117%;
   left: 58%;
   transform: translateX(-50%) translateY(-50%);
   background-color: #f30000;
@@ -85,6 +85,8 @@ input {
     height: 80%; /* Adjust the height as desired */
     border-radius: 8px;
     z-index: 99;
+    overflow: scroll;
+    overflow-x: hidden;
   }
 
   .stick {
@@ -126,4 +128,16 @@ input {
 
 .stick:after {
   right: -6px;
+}
+
+.dropdown-menu {
+  margin-top: 57%;
+  margin-left: 33%;
+  color: white;
+}
+
+.dropdown-menu select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-left: 12%;
 }

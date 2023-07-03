@@ -90,17 +90,20 @@
 </header>
 
   <body>
-    <div class="heading">
-        <h1><b>Upload your image</b></h1>
-    </div>
-
+    
     <div class="container">
+
+      <div class="heading">
+        <h1><b>Upload your image</b></h1>
+      </div>
+
+      <button type="submit" id="upload-btn"  onclick="submitForm()"><b>Upload</b></button>
+      <button type="button" id="remove-btn"  onclick="removeImage()"><b>Remove</b></button>
         <div id="preview-container"></div>
 
         <form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
             <input type="file" id="myFile" name="image" onchange="previewImage(event)">
-            <button type="submit" id="upload-btn" class="hidden" onclick="submitForm()"><b>Upload</b></button>
-            <button type="button" id="remove-btn" class="hidden" onclick="removeImage()"><b>Remove</b></button>
+      
 
             <div class="dropdown-menu" id="style-options-box">
                 <h3>Select your favourite image style</h3>
@@ -121,6 +124,7 @@
                     <option value="portrait-res">Portrait</option>
                 </select>
                 <input type="hidden" name="resolution" id="resolution-option-input">
+
             </div>
         </form>
     </div>
