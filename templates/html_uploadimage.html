@@ -99,8 +99,8 @@
 
         <form id="myForm" action="/process_image" method="POST" enctype="multipart/form-data">
             <input type="file" id="myFile" name="image" onchange="previewImage(event)">
-            <button type="submit" id="upload-btn" class="hidden" onclick="submitForm()"><b>Upload Image</b></button>
-            <a href="/choose_input" id="back-btn"><b>Back</b></a>
+            <button type="submit" id="upload-btn" class="hidden" onclick="submitForm()"><b>Upload</b></button>
+            <button type="button" id="remove-btn" class="hidden" onclick="removeImage()"><b>Remove</b></button>
 
             <div class="dropdown-menu" id="style-options-box">
                 <h3>Select your favourite image style</h3>
