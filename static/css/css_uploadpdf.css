@@ -45,10 +45,9 @@ main {
 /* Button styles */
 .btn {
     display: inline-block;
-    background-color: #ff4040;
+    background-color: #333333;
     color: #ffffff;
-    font-size: 24px;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
@@ -56,104 +55,22 @@ main {
 }
 
 .btn:hover {
-    background-color: #ff4040;
-    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
+    background-color: #666666;
 }
 
-#pdf-upload-btn {
-    position: absolute;
-    top: 55%;
-    left: -12%;
-    transform: translateX(-50%) translateY(-50%);
-    font-size: 24px;
-    color: #ffffff;
-    background-color: #ABB0B8;
-    border: none;
-    border-radius: 8px;
-    padding: 16px 32px;
-    transition: all 0.2s ease-in-out;
-    margin-left: 68%;
-    margin-top: 30px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-#pdf-back-btn {
-    position: absolute;
-    top: 55%;
-    left: 27%;
-    transform: translateX(-50%) translateY(-50%);
-    font-size: 24px;
-    color: #ffffff;
-    background-color: #ff4040;
-    border: none;
-    border-radius: 8px;
-    padding: 16px 32px;
-    transition: all 0.2s ease-in-out;
-    margin-left: 43%;
-    margin-top: 30px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-#pdf-remove-btn {
-    position: absolute;
-    top: 55%;
-    left: 27%;
-    transform: translateX(-50%) translateY(-50%);
-    font-size: 24px;
-    color: #ffffff;
-    background-color: #ff4040;
-    border: none;
-    border-radius: 8px;
-    padding: 16px 32px;
-    transition: all 0.2s ease-in-out;
-    margin-left: 25%;
-    margin-top: 230px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-#pdf-submit-btn {
+#pdf-remove-btn{
     display: inline-block;
-    background-color: #ABB0B8;
+    background-color: #ff4040;
     color: #ffffff;
-    font-size: 24px;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
     cursor: pointer;
 }
 
-#pdf-upload-btn:hover {
-    background-color: #ABB0B8;
-    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-}
-
-#pdf-back-btn:hover {
-    background-color: #ff4040;
-    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-}
-
-#pdf-remove-btn:hover {
-    background-color: #ff4040;
-    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-}
-
-#pdf-submit-btn:hover {
-    background-color: #ABB0B8;
-    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
+#pdf-remove-btn:hover{
+    background-color: #f30000;
 }
 
 /* New classes styles */
