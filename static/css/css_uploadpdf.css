@@ -47,7 +47,7 @@ main {
     display: inline-block;
     background-color: #333333;
     color: #ffffff;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.25rem;
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
@@ -62,7 +62,7 @@ main {
     display: inline-block;
     background-color: #f30000;
     color: #ffffff;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.25rem;
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
