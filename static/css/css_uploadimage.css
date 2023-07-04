@@ -11,7 +11,7 @@
 
 #upload-btn {
     position: absolute;
-    top: 117%;
+    top: 122%;
     left: 42%;
     transform: translateX(-50%) translateY(-50%);
     background-color: #333333;
@@ -30,7 +30,7 @@
 
 #remove-btn {
   position: absolute;
-  top: 117%;
+  top: 122%;
   left: 58%;
   transform: translateX(-50%) translateY(-50%);
   background-color: #f30000;
@@ -149,6 +149,8 @@ input {
   display: none;
   background-color: #ffcccc;
   position: absolute;
+  top: 98%;
+  left: -90px;
   color: #cc0000;
   padding: 10px;
   margin-top: 20%;
