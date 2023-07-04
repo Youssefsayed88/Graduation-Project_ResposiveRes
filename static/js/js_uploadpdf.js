@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (fileInput.files.length > 0) {
                 if (fileInput.files[0].type !== "application/pdf") {
                     pdfErrorBox.style.display = "block";
-                    pdfErrorBox.innerText = "Please select a PDF file or press Back and choose another method.";
+                    pdfErrorBox.innerText = "Please upload a PDF file.";
                     return;
                 }
                 let filename = fileInput.files[0].name;

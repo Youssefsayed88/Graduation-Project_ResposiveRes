@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ pagetitle }}</title>
+    <title>Upload PDF</title>
 
     <link rel="stylesheet" type="text/css" href="../static/css/css_header.css">
     <link rel="stylesheet" type="text/css" href="../static/css/css_uploadpdf.css">
@@ -94,9 +94,8 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Upload your PDF</h1>
-                <div class="error-box" id="pdf-error-box" style="display:none">
-                  <p>Please upload a PDF file.</p>
-              </div>
+                <div class="error-box" id="pdf-error-box" style="display:none"></div>   
+
                 <form id="pdf-upload-form" action="/process_pdf" method="POST" enctype="multipart/form-data">
                     <div class="button-container">
                         <input type="file" name="pdf-file" id="pdf-file" style="display:none">
