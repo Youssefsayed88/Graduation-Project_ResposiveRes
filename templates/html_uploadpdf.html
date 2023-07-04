@@ -89,11 +89,14 @@
   </header>
   
 <body>
-    
+    <div class="container">
     <main>
         <section class="hero">
             <div class="hero-content">
                 <h1>Upload your PDF</h1>
+                <div class="error-box" id="pdf-error-box" style="display:none">
+                  <p>Please upload a PDF file.</p>
+              </div>
                 <form id="pdf-upload-form" action="/process_pdf" method="POST" enctype="multipart/form-data">
                     <div class="button-container">
                         <input type="file" name="pdf-file" id="pdf-file" style="display:none">
@@ -137,12 +140,11 @@
                             <input type="text" id="pdf-specified-pages-input">
                         </div>
                     </div>
-                    <div class="error-box" id="pdf-error-box" style="display:none">
-                        <p>Please select a PDF file or press Back and choose another method.</p>
-                    </div>
+                    
                 </form>
             </div>
         </section>
     </main>
+    </div>
 </body>
 </html>
