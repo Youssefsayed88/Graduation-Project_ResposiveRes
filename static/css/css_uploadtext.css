@@ -124,6 +124,7 @@
 }
 
 .error-message {
+  left: -5px;
   display: none;
   background-color: #ffcccc;
   position: absolute;
